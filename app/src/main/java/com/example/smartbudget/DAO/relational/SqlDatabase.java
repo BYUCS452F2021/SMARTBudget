@@ -1,21 +1,23 @@
-package com.example.smartbudget.DAO;
+package com.example.smartbudget.DAO.relational;
 
-import com.example.smartbudget.DataAcessProxy;
 import com.example.smartbudget.Exceptions.DataAccessException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 
-public class DatabaseSqlManager {
+public class SqlDatabase {
     private Connection conn;
-    private List<DAO> databaseDAOs;
+    private String path;
+
+    public SqlDatabase(String path) {
+        this.path = path;
+
+    }
 
     //Whenever we want to make a change to our database we will have to open a connection and use
     //Statements created by that connection to initiate transactions
-    public Connection openConnection(String path) throws DataAccessException {
+    public Connection openConnection() throws DataAccessException {
         try {
             //The Structure for this Connection is driver:language:path
             //The path assumes you start in the root of your project unless given a non-relative path
@@ -35,8 +37,8 @@ public class DatabaseSqlManager {
     }
 
     public Connection getConnection() throws DataAccessException {
-        if(conn == null) {
-            throw new DataAccessException("No connection open right now");
+        if (conn == null) {
+            return openConnection();
         } else {
             return conn;
         }
@@ -50,7 +52,7 @@ public class DatabaseSqlManager {
     //DATABASE TO LOCK. YOUR CODE MUST ALWAYS INCLUDE A CLOSURE OF THE DATABASE NO MATTER WHAT ERRORS
     //OR PROBLEMS YOU ENCOUNTER
     public void closeConnection(boolean commit) throws DataAccessException {
-        if (conn == null){
+        if (conn == null) {
             return;
         }
         try {
@@ -68,24 +70,6 @@ public class DatabaseSqlManager {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Unable to close database connection");
-        }
-    }
-
-    public void clearTables() throws DataAccessException {
-        for (DAO dao : databaseDAOs){
-            dao.clearTable();
-        }
-    }
-
-    public void createTables() throws DataAccessException{
-        for (DAO dao : databaseDAOs){
-            dao.createTable();
-        }
-    }
-
-    public void dropTables() throws DataAccessException {
-        for (DAO dao : databaseDAOs){
-            dao.dropTable();
         }
     }
 }

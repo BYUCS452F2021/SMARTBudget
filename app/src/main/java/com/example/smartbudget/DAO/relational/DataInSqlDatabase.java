@@ -1,4 +1,4 @@
-package com.example.smartbudget.DAO;
+package com.example.smartbudget.DAO.relational;
 
 import com.example.smartbudget.DataAcessProxy;
 import com.example.smartbudget.Request.CreateBudgetRequest;
@@ -20,7 +20,7 @@ import com.example.smartbudget.Response.LoadYearResponse;
 import com.example.smartbudget.Response.ReadBudgetResponse;
 import com.example.smartbudget.Response.ReportDayResponse;
 
-public class DataInDatabase implements DataAcessProxy {
+public class DataInSqlDatabase implements DataAcessProxy {
     @Override
     public CreateBudgetResponse createBudget(CreateBudgetRequest request) {
         return null;

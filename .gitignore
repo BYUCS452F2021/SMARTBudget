@@ -1,5 +1,7 @@
 *.iml
+*.gradle
 .gradle
+/.gradle
 .idea
 /local.properties
 /.idea/caches
@@ -18,3 +20,4 @@ build.gradle
 gradle.properties
 gradlew
 gradlew.bat
+app/test.sqlite

@@ -9,29 +9,29 @@ import com.example.smartbudget.DAO.UserDao;
 import java.sql.Connection;
 
 public class SqlDaoFactory implements DaoFactory {
-    private Connection connection;
+    private DatabaseSqlManager db;
 
-    public SqlDaoFactory(Connection connection) {
-        this.connection = connection;
+    public SqlDaoFactory(DatabaseSqlManager db) {
+        this.db = db;
     }
 
     @Override
-    public UserDao createUserDao() {
-        return new UserSqlDao(connection);
+    public UserSqlDao createUserDao() {
+        return new UserSqlDao(db);
     }
 
     @Override
-    public BudgetDao createBudgetDao() {
-        return new BudgetSqlDao(connection);
+    public BudgetSqlDao createBudgetDao() {
+        return new BudgetSqlDao(db);
     }
 
     @Override
-    public CategoryDao createCategoryDao() {
-        return new CategorySqlDao(connection);
+    public CategorySqlDao createCategoryDao() {
+        return new CategorySqlDao(db);
     }
 
     @Override
-    public ExpenditureDao createExpenditureDao() {
-        return new ExpenditureSqlDao(connection);
+    public ExpenditureSqlDao createExpenditureDao() {
+        return new ExpenditureSqlDao(db);
     }
 }

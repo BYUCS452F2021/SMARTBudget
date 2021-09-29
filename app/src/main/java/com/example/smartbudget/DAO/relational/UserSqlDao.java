@@ -1,22 +1,16 @@
 package com.example.smartbudget.DAO.relational;
 
-import com.example.smartbudget.DAO.DAO;
 import com.example.smartbudget.DAO.UserDao;
-import com.example.smartbudget.Exceptions.DataAccessException;
-import com.example.smartbudget.Model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+public class UserSqlDao extends SqlDao implements UserDao {
 
-public class UserSqlDao extends DAO implements UserDao {
-
-    public UserSqlDao(Connection conn) {
-        super(conn);
+    public UserSqlDao(DatabaseSqlManager manager) {
+        super(manager);
     }
 
     @Override
     public String createTableStatement() {
-        return null;
+        return "TEXT filler";
     }
 
     @Override
