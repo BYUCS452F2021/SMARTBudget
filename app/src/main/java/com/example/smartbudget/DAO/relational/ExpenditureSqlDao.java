@@ -4,12 +4,12 @@ import com.example.smartbudget.DAO.ExpenditureDao;
 
 public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
 
-    public ExpenditureSqlDao(DatabaseSqlManager manager) {
-        super(manager);
+    public ExpenditureSqlDao(SqlStatementExecutor executor) {
+        super(executor);
     }
 
     @Override
-    public String createTableStatement() {
+    public String getTableStatement() {
         return "TEXT filler";
     }
 

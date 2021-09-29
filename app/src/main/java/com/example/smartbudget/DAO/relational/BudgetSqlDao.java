@@ -3,12 +3,12 @@ package com.example.smartbudget.DAO.relational;
 import com.example.smartbudget.DAO.BudgetDao;
 
 public class BudgetSqlDao extends SqlDao implements BudgetDao {
-    public BudgetSqlDao(DatabaseSqlManager manager) {
-        super(manager);
+    public BudgetSqlDao(SqlStatementExecutor executor) {
+        super(executor);
     }
 
     @Override
-    public String createTableStatement() {
+    public String getTableStatement() {
         return "TEXT filler";
     }
 
