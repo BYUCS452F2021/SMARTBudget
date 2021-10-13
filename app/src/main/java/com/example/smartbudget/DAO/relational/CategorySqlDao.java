@@ -9,7 +9,11 @@ public class CategorySqlDao extends SqlDao implements CategoryDao {
 
     @Override
     public String getTableStatement() {
-        return "TEXT filler";
+        return "category_id TEXT PRIMARY KEY, " +
+                "name TEXT, " +
+                "spending_goal INTEGER, " +
+                "budget_id TEXT, " +
+                "FOREIGN KEY(budget_id) REFERENCES budget(budget_id)";
     }
 
     @Override
