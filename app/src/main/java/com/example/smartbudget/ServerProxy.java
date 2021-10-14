@@ -1,6 +1,7 @@
 package com.example.smartbudget;
 
 import com.example.smartbudget.Handler.LoginHandler;
+import com.example.smartbudget.Handler.RegisterHandler;
 import com.example.smartbudget.Request.CreateBudgetRequest;
 import com.example.smartbudget.Request.DeleteBudgetRequest;
 import com.example.smartbudget.Request.EditBudgetRequest;
@@ -79,6 +80,7 @@ public class ServerProxy implements DataAcessProxy {
 
     @Override
     public RegisterResponse register(RegisterRequest request) {
-        return null;
+        //use handler
+        return new RegisterHandler().register(request);
     }
 }

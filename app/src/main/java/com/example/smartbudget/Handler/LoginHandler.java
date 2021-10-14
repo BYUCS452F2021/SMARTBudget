@@ -12,13 +12,14 @@ import com.example.smartbudget.Response.LoginResponse;
 public class LoginHandler {
 
     public LoginResponse login(LoginRequest request){
-        DaoFactory manager = DatabaseSqlManager.getInstance();
-        UserDao userDao = manager.createUserDao();
-        //query userdao to determine if login succeed
-        User user = userDao.getUser(request.getUsername());
-        if(user != null){
-            return new LoginResponse(true, user, null);
-        }
-        return new LoginResponse(false, null, "Data access returned no user");
+        return new LoginResponse(true, null, null);
+//        DaoFactory manager = DatabaseSqlManager.getInstance();
+//        UserDao userDao = manager.createUserDao();
+//        //query userdao to determine if login succeed
+//        User user = userDao.getUser(request.getUsername());
+//        if(user != null){
+//            return new LoginResponse(true, user, null);
+//        }
+//        return new LoginResponse(false, null, "Data access returned no user");
     }
 }
