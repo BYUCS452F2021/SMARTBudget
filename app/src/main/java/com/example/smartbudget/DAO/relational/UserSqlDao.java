@@ -46,4 +46,9 @@ public class UserSqlDao extends SqlDao implements UserDao {
     public boolean deleteUser(String id) {
         return false;
     }
+
+    @Override
+    public User getUser(String username) {
+        return null;
+    }
 }
