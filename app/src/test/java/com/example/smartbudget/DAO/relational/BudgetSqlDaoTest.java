@@ -5,7 +5,8 @@ import com.example.smartbudget.Exceptions.DataAccessException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 public class BudgetSqlDaoTest extends SqlDaoTest {
     @Test
