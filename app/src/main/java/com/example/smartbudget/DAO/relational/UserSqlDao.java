@@ -14,7 +14,7 @@ public class UserSqlDao extends SqlDao implements UserDao {
     public String getTableStatement() {
         //User(UserID, Username, UserPassword)
         return "user_id TEXT PRIMARY KEY,\n" +
-                "user_name TEXT NOT NULL,\n" +
+                "user_name TEXT NOT NULL UNIQUE,\n" +
                 "user_password TEXT NOT NULL";
     }
 
