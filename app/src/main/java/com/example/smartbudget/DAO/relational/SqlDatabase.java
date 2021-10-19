@@ -12,7 +12,6 @@ public class SqlDatabase {
 
     public SqlDatabase(String path) {
         this.path = path;
-
     }
 
     //Whenever we want to make a change to our database we will have to open a connection and use

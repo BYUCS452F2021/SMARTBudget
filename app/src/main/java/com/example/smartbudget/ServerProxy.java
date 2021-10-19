@@ -1,5 +1,7 @@
 package com.example.smartbudget;
 
+import com.example.smartbudget.Handler.LoginHandler;
+import com.example.smartbudget.Handler.RegisterHandler;
 import com.example.smartbudget.Request.CreateBudgetRequest;
 import com.example.smartbudget.Request.DeleteBudgetRequest;
 import com.example.smartbudget.Request.EditBudgetRequest;
@@ -7,7 +9,9 @@ import com.example.smartbudget.Request.EditCategoriesRequest;
 import com.example.smartbudget.Request.EditExpendituresRequest;
 import com.example.smartbudget.Request.GetStatsRequest;
 import com.example.smartbudget.Request.LoadYearRequest;
+import com.example.smartbudget.Request.LoginRequest;
 import com.example.smartbudget.Request.ReadBudgetRequest;
+import com.example.smartbudget.Request.RegisterRequest;
 import com.example.smartbudget.Request.ReportDayRequest;
 import com.example.smartbudget.Response.CreateBudgetResponse;
 import com.example.smartbudget.Response.DeleteBudgetResponse;
@@ -16,7 +20,9 @@ import com.example.smartbudget.Response.EditCategoriesResponse;
 import com.example.smartbudget.Response.EditExpendituresResponse;
 import com.example.smartbudget.Response.GetStatsResponse;
 import com.example.smartbudget.Response.LoadYearResponse;
+import com.example.smartbudget.Response.LoginResponse;
 import com.example.smartbudget.Response.ReadBudgetResponse;
+import com.example.smartbudget.Response.RegisterResponse;
 import com.example.smartbudget.Response.ReportDayResponse;
 
 public class ServerProxy implements DataAcessProxy {
@@ -64,5 +70,17 @@ public class ServerProxy implements DataAcessProxy {
     @Override
     public EditCategoriesResponse editCategories(EditCategoriesRequest request) {
         return null;
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest request) {
+        //use handler
+        return new LoginHandler().login(request);
+    }
+
+    @Override
+    public RegisterResponse register(RegisterRequest request) {
+        //use handler
+        return new RegisterHandler().register(request);
     }
 }
