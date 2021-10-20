@@ -1,9 +1,10 @@
 package com.example.smartbudget.DAO.relational;
 
 import com.example.smartbudget.DAO.CategoryDao;
+import com.example.smartbudget.DAO.StatementExecutor;
 
 public class CategorySqlDao extends SqlDao implements CategoryDao {
-    public CategorySqlDao(SqlStatementExecutor executor) {
+    public CategorySqlDao(StatementExecutor executor) {
         super(executor);
     }
 

@@ -1,12 +1,13 @@
 package com.example.smartbudget.DAO.relational;
 
+import com.example.smartbudget.DAO.StatementExecutor;
 import com.example.smartbudget.DAO.UserDao;
 import com.example.smartbudget.Exceptions.DataAccessException;
 import com.example.smartbudget.Model.User;
 
 public class UserSqlDao extends SqlDao implements UserDao {
 
-    public UserSqlDao(SqlStatementExecutor executor) {
+    public UserSqlDao(StatementExecutor executor) {
         super(executor);
     }
 

@@ -1,6 +1,7 @@
 package com.example.smartbudget.DAO;
 
 import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
+import com.example.smartbudget.DAO.relational.test.TestSqlManager;
 import com.example.smartbudget.Exceptions.DataAccessException;
 import com.example.smartbudget.Model.User;
 
@@ -16,14 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.UUID;
 
 public class SqlDaoTest {
-    protected static DatabaseSqlManager manager;
+    protected static TestSqlManager manager;
     protected static String DB_PATH = "test.sqlite";
 
     @BeforeAll
     protected static void start(){
         try {
-            DatabaseSqlManager.init(DB_PATH);
-            manager = DatabaseSqlManager.getInstance();
+            TestSqlManager.init(DB_PATH);
+            manager = TestSqlManager.getInstance();
         } catch (DataAccessException e) {
             e.printStackTrace();
             fail();

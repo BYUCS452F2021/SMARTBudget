@@ -16,7 +16,7 @@ public class SqlDatabase {
 
     //Whenever we want to make a change to our database we will have to open a connection and use
     //Statements created by that connection to initiate transactions
-    public Connection openConnection() throws DataAccessException {
+    public Connection openConnection() {
         try {
             //The Structure for this Connection is driver:language:path
             //The path assumes you start in the root of your project unless given a non-relative path
@@ -29,13 +29,12 @@ public class SqlDatabase {
             conn.setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Unable to open connection to database");
         }
 
         return conn;
     }
 
-    public Connection getConnection() throws DataAccessException {
+    public Connection getConnection() {
         if (conn == null) {
             return openConnection();
         } else {
@@ -50,7 +49,7 @@ public class SqlDatabase {
     //IMPORTANT: IF YOU FAIL TO CLOSE A CONNECTION AND TRY TO REOPEN THE DATABASE THIS WILL CAUSE THE
     //DATABASE TO LOCK. YOUR CODE MUST ALWAYS INCLUDE A CLOSURE OF THE DATABASE NO MATTER WHAT ERRORS
     //OR PROBLEMS YOU ENCOUNTER
-    public void closeConnection(boolean commit) throws DataAccessException {
+    public void closeConnection(boolean commit) {
         if (conn == null) {
             return;
         }
@@ -68,7 +67,6 @@ public class SqlDatabase {
             conn = null;
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Unable to close database connection");
         }
     }
 }

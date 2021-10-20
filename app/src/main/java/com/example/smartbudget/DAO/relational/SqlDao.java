@@ -1,20 +1,21 @@
 package com.example.smartbudget.DAO.relational;
 
+import com.example.smartbudget.DAO.StatementExecutor;
 import com.example.smartbudget.Exceptions.DataAccessException;
 
 import java.sql.ResultSet;
 
 public abstract class SqlDao {
 
-    protected SqlStatementExecutor executor;
+    protected StatementExecutor executor;
 
-    public SqlDao(SqlStatementExecutor executor) {
+    public SqlDao(StatementExecutor executor) {
         this.executor = executor;
     }
 
     abstract public String getTableStatement();
 
-    public void createTable() throws DataAccessException{
+    public void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS " + getTableName() + "(" +
                 getTableStatement() +
                 ");";
@@ -23,11 +24,11 @@ public abstract class SqlDao {
 
     abstract protected String getTableName();
 
-    public void clearTable() throws DataAccessException {
+    public void clearTable() {
         executor.executeStatement("DELETE FROM " + getTableName());
     }
 
-    public void dropTable() throws DataAccessException {
+    public void dropTable() {
         executor.executeStatement("DROP TABLE " + getTableName());
     }
 
@@ -36,7 +37,7 @@ public abstract class SqlDao {
         return executor.executeStatement(sqlInsertStatement);
     }
 
-    public ResultSet read(String sqlSelectStatement) throws DataAccessException {
+    public Object read(String sqlSelectStatement) {
         return executor.executeQuery(sqlSelectStatement);
     }
 

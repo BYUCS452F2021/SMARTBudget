@@ -1,40 +1,38 @@
 package com.example.smartbudget.DAO.relational;
 
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.smartbudget.DAO.StatementExecutor;
 import com.example.smartbudget.Exceptions.DataAccessException;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class SqlStatementExecutor {
-    private SqlDatabase db;
+public class SqlStatementExecutor implements StatementExecutor {
+    private SQLiteDatabase db;
 
-    public SqlStatementExecutor(String path) {
-        db = new SqlDatabase(path);
+    public SqlStatementExecutor(SQLiteDatabase db) {
+        this.db = db;
     }
 
-    public int executeStatement(String sqlStatement) throws DataAccessException {
-        int result = 0;
+    @Override
+    public int executeStatement(String sqlStatement) {
         try {
-            result = db.getConnection().createStatement().executeUpdate(sqlStatement);
-        } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
-        }
-        finally {
-            db.closeConnection(true);
-        }
-        return result;
-    }
-
-    public ResultSet executeQuery (String sqlStatement) throws DataAccessException {
-        ResultSet result = null;
-        try {
-            result = db.getConnection().createStatement().executeQuery(sqlStatement);
-        } catch (SQLException e) {
+            db.execSQL(sqlStatement);
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
-        finally {
-            db.closeConnection(false);
+        return 1;
+    }
+
+    @Override
+    public Object executeQuery(String sqlStatement) {
+        try {
+            return db.rawQuery(sqlStatement, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return result;
     }
 }

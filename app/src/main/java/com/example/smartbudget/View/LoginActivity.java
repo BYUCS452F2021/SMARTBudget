@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
+import com.example.smartbudget.Model.User;
 import com.example.smartbudget.Presenter.LoginPresenter;
 import com.example.smartbudget.Presenter.RegisterPresenter;
 import com.example.smartbudget.R;
