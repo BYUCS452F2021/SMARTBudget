@@ -13,6 +13,11 @@ public class RegisterResponse {
         _message = message;
     }
 
+    public RegisterResponse(boolean _success, String _message) {
+        this._success = _success;
+        this._message = _message;
+    }
+
     public boolean getSuccess(){
         return _success;
     }

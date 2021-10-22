@@ -41,13 +41,13 @@ public abstract class SqlDao {
         return executor.executeQuery(sqlSelectStatement);
     }
 
-    public int update(String sqlUpdateStatement) throws DataAccessException{
+    public int update(String sqlUpdateStatement) {
         //update person set username = 'john123', gender = 'm' where firstName = 'john'
         // String sql = "UPDATE " + getTableName() + " SET " + " ";
         return executor.executeStatement(sqlUpdateStatement);
     }
 
-    public int delete(String sqlDeleteStatement) throws DataAccessException {
+    public int delete(String sqlDeleteStatement) {
         return executor.executeStatement(sqlDeleteStatement);
     }
 }

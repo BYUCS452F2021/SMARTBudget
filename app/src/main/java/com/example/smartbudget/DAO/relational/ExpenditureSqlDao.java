@@ -9,6 +9,10 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
         super(executor);
     }
 
+    //Expenditure(ExpenditureID, CategoryID, ExpenditureDescription, ExpenditureAmount,
+    // ExpenditureYear, ExpenditureMonth, ExpenditureDay)
+    //Foreign Key CategoryID references Category
+
     @Override
     public String getTableStatement() {
         return "TEXT filler";

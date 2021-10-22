@@ -18,6 +18,7 @@ import java.util.List;
 
 public class DatabaseSqlManager extends SQLiteOpenHelper implements DaoFactory {
     private static DatabaseSqlManager _instance;
+    private static Context currActivity;
     private List<SqlDao> databaseDAOs;
     private SqlDaoFactory factory;
 
@@ -39,15 +40,24 @@ public class DatabaseSqlManager extends SQLiteOpenHelper implements DaoFactory {
         createTables();
     }
 
+    public static DatabaseSqlManager init(String dbPath){
+        _instance = new DatabaseSqlManager(currActivity, dbPath);
+        return _instance;
+    }
+
     private static void init(Context context) {
         _instance = new DatabaseSqlManager(context, "db.sqlite");
     }
 
-    public static DatabaseSqlManager getInstance(Context context) {
+    public static DatabaseSqlManager getInstance() {
         if (_instance == null){
-            init(context);
+            init(currActivity);
         }
         return _instance;
+    }
+
+    public static void setCurrContext(Context currActivity) {
+        DatabaseSqlManager.currActivity = currActivity;
     }
 
     public void clearTables() {
@@ -56,7 +66,7 @@ public class DatabaseSqlManager extends SQLiteOpenHelper implements DaoFactory {
         }
     }
 
-    private void createTables() {
+    public void createTables() {
         for (SqlDao dao : databaseDAOs){
             dao.createTable();
         }
@@ -95,8 +105,6 @@ public class DatabaseSqlManager extends SQLiteOpenHelper implements DaoFactory {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        dropTables();
-        createTables();
     }
 }
 

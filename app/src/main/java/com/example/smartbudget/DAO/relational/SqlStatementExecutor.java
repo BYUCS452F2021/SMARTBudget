@@ -18,21 +18,12 @@ public class SqlStatementExecutor implements StatementExecutor {
 
     @Override
     public int executeStatement(String sqlStatement) {
-        try {
-            db.execSQL(sqlStatement);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
+        db.execSQL(sqlStatement);
         return 1;
     }
 
     @Override
     public Object executeQuery(String sqlStatement) {
-        try {
-            return db.rawQuery(sqlStatement, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return db.rawQuery(sqlStatement, null);
     }
 }

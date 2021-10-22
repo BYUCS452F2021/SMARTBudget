@@ -1,21 +1,19 @@
 package com.example.smartbudget.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
-import com.example.smartbudget.Model.User;
+import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Presenter.LoginPresenter;
 import com.example.smartbudget.Presenter.RegisterPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.LoginResponse;
 import com.example.smartbudget.Response.RegisterResponse;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginView, RegisterPresenter.RegisterView {
+public class LoginActivity extends SmartBudgetActivity implements LoginPresenter.LoginView, RegisterPresenter.RegisterView {
     private LoginPresenter _loginPresenter;
     private RegisterPresenter _registerPresenter;
     private Button _loginButton;
@@ -71,25 +69,32 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     public void loginDone(LoginResponse response) {
         String displayMessage;
         if(response.getSuccess()){
-            displayMessage = "Success! Logging in...";
+            DataCache.getInstance().setCurrUser(response.getUser());
+            launchBudgetViewActvity();
         }else{
             displayMessage = "Incorrect username or password";
-        }
-        this.runOnUiThread(
-                () -> Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show()
+            this.runOnUiThread(
+                    () -> Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show()
             );
+        }
     }
 
     @Override
     public void registerDone(RegisterResponse response) {
         String displayMessage;
         if(response.getSuccess()){
-            displayMessage = "Registered! Logging in...";
+            DataCache.getInstance().setCurrUser(response.getUser());
+            launchBudgetViewActvity();
         }else{
             displayMessage = "Registration failed";
+            this.runOnUiThread(
+                    () -> Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show()
+            );
         }
-        this.runOnUiThread(
-                () -> Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show()
-        );
+    }
+
+    private void launchBudgetViewActvity(){
+        Intent intent = new Intent(this, SelectBudgetActivity.class);
+        startActivity(intent);
     }
 }

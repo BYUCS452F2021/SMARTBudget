@@ -7,10 +7,14 @@ public class LoginResponse {
     private User _user;
     private String _message;
 
-    public LoginResponse(boolean success, User user, String message){
+    public LoginResponse(boolean success, User user){
         _success = success;
         _user = user;
-        _message = message;
+    }
+
+    public LoginResponse(boolean _success, String _message) {
+        this._success = _success;
+        this._message = _message;
     }
 
     public boolean getSuccess(){
