@@ -11,7 +11,7 @@ public class CategorySqlDao extends SqlDao implements CategoryDao {
     @Override
     public String getTableStatement() {
         return "category_id TEXT PRIMARY KEY, " +
-                "name TEXT, " +
+                "category_name TEXT, " +
                 "spending_goal INTEGER, " +
                 "budget_id TEXT, " +
                 "FOREIGN KEY(budget_id) REFERENCES budget(budget_id)";
