@@ -8,8 +8,8 @@ import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
 
 public abstract class SmartBudgetActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
         DatabaseSqlManager.setCurrContext(this);
     }
 }
