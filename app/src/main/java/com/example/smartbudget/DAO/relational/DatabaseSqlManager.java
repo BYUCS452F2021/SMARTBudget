@@ -100,7 +100,6 @@ public class DatabaseSqlManager extends SQLiteOpenHelper implements DaoFactory {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        createTables();
     }
 
     @Override
