@@ -32,22 +32,22 @@ public abstract class SqlDao {
         executor.executeStatement("DROP TABLE " + getTableName());
     }
 
-    public int insert(String sqlInsertStatement) throws DataAccessException{
+    public void insert(String sqlInsertStatement) throws DataAccessException{
         // String sql = "INSERT INTO " + getTableName() + " (" + schema + ") values (" + values + ");";
-        return executor.executeStatement(sqlInsertStatement);
+        executor.executeStatement(sqlInsertStatement);
     }
 
     public Object read(String sqlSelectStatement) {
         return executor.executeQuery(sqlSelectStatement);
     }
 
-    public int update(String sqlUpdateStatement) {
+    public void update(String sqlUpdateStatement) {
         //update person set username = 'john123', gender = 'm' where firstName = 'john'
         // String sql = "UPDATE " + getTableName() + " SET " + " ";
-        return executor.executeStatement(sqlUpdateStatement);
+        executor.executeStatement(sqlUpdateStatement);
     }
 
-    public int delete(String sqlDeleteStatement) {
-        return executor.executeStatement(sqlDeleteStatement);
+    public void delete(String sqlDeleteStatement) {
+        executor.executeStatement(sqlDeleteStatement);
     }
 }

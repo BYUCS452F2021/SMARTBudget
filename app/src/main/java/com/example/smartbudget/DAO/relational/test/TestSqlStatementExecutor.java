@@ -16,17 +16,15 @@ public class TestSqlStatementExecutor implements StatementExecutor {
     }
 
     @Override
-    public int executeStatement(String sqlStatement) {
-        int result = 0;
+    public void executeStatement(String sqlStatement) {
         try {
-            result = db.getConnection().createStatement().executeUpdate(sqlStatement);
+            db.getConnection().createStatement().executeUpdate(sqlStatement);
         } catch (Exception e) {
             e.printStackTrace();
         }
         finally {
             db.closeConnection(true);
         }
-        return result;
     }
 
     @Override

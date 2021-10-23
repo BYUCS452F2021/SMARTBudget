@@ -5,8 +5,8 @@ import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
 import com.example.smartbudget.Model.User;
 
 public interface UserDao {
-    boolean createUser(User user);
-    boolean updateUser(User user);
-    boolean deleteUser(String id);
+    void createUser(User user);
+    void updateUser(User user);
+    void deleteUser(String id);
     User getUser(String username, String password);
 }

@@ -29,27 +29,26 @@ public class UserSqlDao extends SqlDao implements UserDao {
     }
 
     @Override
-    public boolean createUser(User user) {
+    public void createUser(User user) {
         //insert into user (user_id, user_name, user_password) values ('','','',);
         String sql = "INSERT INTO " + getTableName() + " (user_id, user_name, user_password)" +
                 " VALUES ('" + user.getId() + "','" + user.getUsername() + "','" + user.getPassword() +
                 "');";
         try {
-            return insert(sql) > 0;
+            insert(sql);
         } catch (DataAccessException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
     @Override
-    public boolean updateUser(User user) {
-        return false;
+    public void updateUser(User user) {
+
     }
 
     @Override
-    public boolean deleteUser(String id) {
-        return false;
+    public void deleteUser(String id) {
+
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.example.smartbudget;
 
 import com.example.smartbudget.Model.JsonHandler;
-import com.example.smartbudget.Request.CreateBudgetRequest;
-import com.example.smartbudget.Response.CreateBudgetResponse;
+import com.example.smartbudget.Request.AddBudgetRequest;
+import com.example.smartbudget.Response.AddBudgetResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,17 +13,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Server {
-    public static CreateBudgetResponse createBudget(CreateBudgetRequest r){
+    public static AddBudgetResponse createBudget(AddBudgetRequest r){
         try {
             URL url = new URL("http://" + "localhost" + ":" + "8080" + "/create");
             HttpURLConnection http = createConnection(url, false);
             writeJsonToOutputStream(JsonHandler.Encode(r), http.getOutputStream());
             InputStream respBody = getResponseInputStream(http);
-            return (CreateBudgetResponse) JsonHandler.Decode(
-                    readString(respBody), new CreateBudgetResponse());
+            return (AddBudgetResponse) JsonHandler.Decode(
+                    readString(respBody), new AddBudgetResponse(""));
         }
         catch (IOException e) {
-            return new CreateBudgetResponse(e.getMessage());
+            return new AddBudgetResponse(e.getMessage());
         }
     }
 

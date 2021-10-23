@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 import java.util.UUID;
 
 public class Category {
-    UUID id;
-    String name;
-    float allotment;
+    private UUID id;
+    private String name;
+    private float allotment;
 
     public Category(UUID id, String name, float allotment){
         this.name = name;

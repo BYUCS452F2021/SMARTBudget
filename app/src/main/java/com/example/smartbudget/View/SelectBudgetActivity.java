@@ -1,6 +1,7 @@
 package com.example.smartbudget.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,40 +14,72 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Budget;
+import com.example.smartbudget.Presenter.BudgetListPresenter;
 import com.example.smartbudget.R;
+import com.example.smartbudget.Response.GetBudgetResponse;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectBudgetActivity extends SmartBudgetActivity implements ListItemClickListener{
+public class SelectBudgetActivity extends SmartBudgetActivity implements ListItemClickListener, BudgetListPresenter.BudgetListView {
 
-    RecyclerView budgetView;
-    RecyclerView.Adapter<BudgetAdapter.ViewHolder> adapter;
-    List<Budget> budgets;
+    private RecyclerView budgetView;
+    private RecyclerView.Adapter<BudgetAdapter.ViewHolder> adapter;
+    private List<Budget> budgets;
+
+    private BudgetListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_budget);
 
-        // TODO load from actual database
-        budgets = new ArrayList<>();
-        budgets.add(new Budget("Jimmy's Budget", 1000.0));
-        budgets.add(new Budget("Test", 2500.0));
-        budgets.add(new Budget("Eureka", 0.0));
+        presenter = new BudgetListPresenter(this);
+        presenter.getBudgets(DataCache.getInstance().getCurrUser());
+
+        DataCache.getInstance().setCurrBudgets(new ArrayList<>());
+        budgets = DataCache.getInstance().getCurrBudgets();
 
         budgetView = findViewById(R.id.budget_view);
         adapter = new BudgetAdapter(budgets, this);
 
         budgetView.setAdapter(adapter);
         budgetView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        FloatingActionButton addBudgetButton = findViewById(R.id.add_budget_btn);
+        addBudgetButton.setOnClickListener(v->launchCreateBudgetActivity());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onListItemClick(int position) {
-        DataCache.getInstance().setBudget(budgets.get(position));
-        Toast.makeText(this, "Success: " + position, Toast.LENGTH_LONG).show();
-        // TODO launch budget activity
+        DataCache.getInstance().setBudget(position);
+        launchBudgetDashboardActivity();
+    }
+
+    @Override
+    public void listFetched(GetBudgetResponse response) {
+        if (response.isSuccess()) {
+            DataCache.getInstance().updateBudgets(response.getBudgets());
+            adapter.notifyItemRangeInserted(0, budgets.size());
+        }
+    }
+
+    private void launchCreateBudgetActivity(){
+        Intent intent = new Intent(this, AddBudgetActivity.class);
+        startActivity(intent);
+    }
+
+    private void launchBudgetDashboardActivity(){
+        Intent intent = new Intent(this, MainBudgetDashboardActivity.class);
+        startActivity(intent);
     }
 }
 
@@ -97,11 +130,13 @@ class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
         Budget budget = budgets.get(position);
 
         holder.budgetTextView.setText(budget.getName());
-        holder.budgetGoalView.setText("$" + budget.getSpendingGoal());
+        holder.budgetGoalView.setText("$" + budget.calcSpendingGoal());
     }
 
     @Override
     public int getItemCount() {
         return budgets.size();
     }
+
+
 }

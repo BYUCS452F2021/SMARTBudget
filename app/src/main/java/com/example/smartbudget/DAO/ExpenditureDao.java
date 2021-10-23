@@ -5,6 +5,5 @@ import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
 import com.example.smartbudget.Model.Expenditure;
 
 public interface ExpenditureDao {
-
-    boolean createExpenditure(Expenditure expenditure);
+    void createExpenditure(Expenditure expenditure);
 }

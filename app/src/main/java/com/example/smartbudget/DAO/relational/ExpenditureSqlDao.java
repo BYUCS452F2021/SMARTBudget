@@ -14,12 +14,14 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
 
     @Override
     public String getTableStatement() {
-        return
-                "expenditure_id TEXT PRIMARY KEY,\n" + "category_id TEXT NOT NULL,\n" +
-                "expenditure_description TEXT,\n" + "expenditure_amount REAL NOT NULL,\n" +
-                "expenditure_year TEXT NOT NULL,\n" + "expenditure_month TEXT NOT NULL,\n"
-                        + "expenditure_day TEXT NOT NULL,\n" +
-                        "FOREIGN KEY(category_id) REFERENCES category(category_id)";
+        return  "expenditure_id TEXT PRIMARY KEY,\n" +
+                "category_id TEXT NOT NULL,\n" +
+                "expenditure_description TEXT,\n" +
+                "expenditure_amount REAL NOT NULL,\n" +
+                "expenditure_year TEXT NOT NULL,\n" +
+                "expenditure_month TEXT NOT NULL,\n" +
+                "expenditure_day TEXT NOT NULL,\n" +
+                "FOREIGN KEY(category_id) REFERENCES category(category_id)";
     }
 
     @Override
@@ -28,7 +30,7 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
     }
 
     @Override
-    public boolean createExpenditure(Expenditure expenditure) {
+    public void createExpenditure(Expenditure expenditure) {
         //insert into user (user_id, user_name, user_password) values ('','','',);
         String sql = "INSERT INTO " + getTableName() + " (expenditure_id, category_id, " +
                 "expenditure_description, expenditure_amount, expenditure_year, expenditure_month," +
@@ -37,10 +39,9 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
                 + "','" + expenditure.getAmount() + "','" + expenditure.getYear() + "','" + expenditure.getMonth() + "','" +
                 expenditure.getDay() + "');";
         try {
-            return insert(sql) > 0;
+            insert(sql);
         } catch (DataAccessException e) {
             e.printStackTrace();
-            return false;
         }
     }
 }

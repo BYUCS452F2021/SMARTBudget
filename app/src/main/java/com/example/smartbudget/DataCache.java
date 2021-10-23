@@ -3,9 +3,12 @@ package com.example.smartbudget;
 import com.example.smartbudget.Model.Budget;
 import com.example.smartbudget.Model.User;
 
+import java.util.List;
+
 public class DataCache {
     private static DataCache _instance;
     private User _currUser;
+    private List<Budget> _currBudgets;
     private Budget _budget;
 
     private DataCache() {
@@ -13,11 +16,9 @@ public class DataCache {
 
     public static DataCache getInstance(){
         if (_instance == null){
-            return new DataCache();
+            _instance = new DataCache();
         }
-        else {
-            return _instance;
-        }
+        return _instance;
     }
 
     public User getCurrUser() {
@@ -32,7 +33,20 @@ public class DataCache {
         return _budget;
     }
 
-    public void setBudget(Budget _budget) {
-        this._budget = _budget;
+    public void setBudget(int position) {
+        this._budget = _currBudgets.get(position);
+    }
+
+    public List<Budget> getCurrBudgets() {
+        return _currBudgets;
+    }
+
+    public void setCurrBudgets(List<Budget> currBudgets) {
+        this._currBudgets = currBudgets;
+    }
+
+    public void updateBudgets(List<Budget> newBudgets){
+        this._currBudgets.clear();
+        _currBudgets.addAll(newBudgets);
     }
 }

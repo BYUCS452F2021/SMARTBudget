@@ -17,9 +17,8 @@ public class SqlStatementExecutor implements StatementExecutor {
     }
 
     @Override
-    public int executeStatement(String sqlStatement) {
+    public void executeStatement(String sqlStatement) {
         db.execSQL(sqlStatement);
-        return 1;
     }
 
     @Override

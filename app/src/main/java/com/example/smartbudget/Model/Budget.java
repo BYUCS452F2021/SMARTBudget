@@ -1,32 +1,63 @@
 package com.example.smartbudget.Model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class Budget {
-    private String budgetID;
-    String name;
-    private double spendingGoal;
+    private UUID budgetID;
+    private String name;
+    private LocalDateTime timestamp;
     private List<Expenditure> expenditures;
     private List<Category> categories;
 
     public Budget() {
     }
 
-    public Budget(String name, double spendingGoal) {
+    /**
+     * Constructor used when you query a budget from the database
+     * @param name
+     * @param id
+     * @param timestamp
+     */
+    public Budget(UUID id, String name, LocalDateTime timestamp) {
         this.name = name;
-        this.spendingGoal = spendingGoal;
-        this.budgetID = UUID.randomUUID().toString();
+        this.budgetID = id;
+        this.timestamp = timestamp;
         this.expenditures = new ArrayList<>();
         this.categories = new ArrayList<>();
+    }
+
+    /**
+     * Constructor used when you create a new budget within the app
+     * @param name
+     */
+    public Budget(String name) {
+        this.budgetID = UUID.randomUUID();
+        this.name = name;
+        this.timestamp = LocalDateTime.now();
+        this.expenditures = new ArrayList<>();
+        this.categories = new ArrayList<>();
+    }
+
+    public UUID getBudgetID() {
+        return budgetID;
     }
 
     public String getName() {
         return name;
     }
 
-    public double getSpendingGoal() {
-        return spendingGoal;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public double calcSpendingGoal(){
+        double total = 0;
+        for (Category c : categories){
+            total += c.getAllotment();
+        }
+        return total;
     }
 }
