@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.example.smartbudget.DAO.CategoryDao;
 import com.example.smartbudget.DAO.StatementExecutor;
 import com.example.smartbudget.Exceptions.DataAccessException;
+import com.example.smartbudget.Model.Budget;
 import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.User;
 
@@ -29,21 +30,32 @@ public class CategorySqlDao extends SqlDao implements CategoryDao {
         return "category";
     }
 
-    public void createCategory(Category category) {
-        String sql = "INSERT INTO " + getTableName() + " (category_id, category_name, allotment) " +
+    public void createCategory(Category category, Budget budget) {
+        String sql = "INSERT INTO " + getTableName() + " (category_id, category_name, allotment, budget_id) " +
                 " VALUES ('" + category.getId() + "', '" + category.getName() + "', '" +
-                category.getAllotment() + "');";
+                category.getAllotment() + "', '" + budget.getBudgetID() + "');";
         try {
             insert(sql);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
     }
-    public void updateCategory(Category category) {
-
+    public void updateCategory(Category category, Budget budget) {
+        String sql = "UPDATE " + getTableName() + " SET category_name = '" + category.getName() +
+                "', allotment = " + category.getAllotment() + "' WHERE category_id = '" + category.getId() + "';";
+        try {
+            update(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void deleteCategory(String id) {
-
+        String sql = "DELETE FROM " + getTableName() + " WHERE category_id = '" + id + "';";
+        try {
+            delete(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public Category getCategory(String category_id) {
         String sql = "SELECT * FROM " + getTableName() + " WHERE category_id=\'" + category_id + "\'";
