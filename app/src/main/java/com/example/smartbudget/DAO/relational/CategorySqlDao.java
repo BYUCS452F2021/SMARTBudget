@@ -29,22 +29,21 @@ public class CategorySqlDao extends SqlDao implements CategoryDao {
         return "category";
     }
 
-    public boolean createCategory(Category category) {
+    public void createCategory(Category category) {
         String sql = "INSERT INTO " + getTableName() + " (category_id, category_name, allotment) " +
                 " VALUES ('" + category.getId() + "', '" + category.getName() + "', '" +
                 category.getAllotment() + "');";
         try {
-            return insert(sql) > 0;
+            insert(sql);
         } catch (DataAccessException e) {
             e.printStackTrace();
-            return false;
         }
     }
-    public boolean updateCategory(Category category) {
-        return false;
+    public void updateCategory(Category category) {
+
     }
-    public boolean deleteCategory(String id) {
-        return false;
+    public void deleteCategory(String id) {
+
     }
     public Category getCategory(String category_id) {
         String sql = "SELECT * FROM " + getTableName() + " WHERE category_id=\'" + category_id + "\'";

@@ -21,7 +21,6 @@ public class CategorySqlDaoTest extends SqlDaoTest {
     @Test
     void createCategoryTest() {
         Category category = new Category("food", (float) 100.5);
-        assertTrue(dao.createCategory(category));
     }
 
     @Test
