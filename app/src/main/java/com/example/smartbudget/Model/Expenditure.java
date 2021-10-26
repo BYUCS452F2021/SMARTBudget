@@ -9,24 +9,25 @@ import java.util.UUID;
 
 public class Expenditure {
     UUID id;
-    Category category;
     String description;
     float amount;
     LocalDateTime timeStamp;
 
-    public Expenditure(Category category, String description, float amount) {
-        this.category = category;
+    public Expenditure(String description, float amount) {
         this.description = description;
         this.amount = amount;
         this.timeStamp = LocalDateTime.now();
     }
 
-    public UUID getId() {
-        return id;
+    public Expenditure(UUID id, String description, float amount, LocalDateTime timeStamp) {
+        this.id = id;
+        this.description = description;
+        this.amount = amount;
+        this.timeStamp = timeStamp;
     }
 
-    public UUID getCategory() {
-        return category.getId();
+    public UUID getId() {
+        return id;
     }
 
     public String getDescription() {
