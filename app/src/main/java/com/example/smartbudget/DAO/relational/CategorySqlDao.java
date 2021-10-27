@@ -9,6 +9,9 @@ import com.example.smartbudget.Model.Budget;
 import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.User;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CategorySqlDao extends SqlDao implements CategoryDao {
@@ -30,7 +33,7 @@ public class CategorySqlDao extends SqlDao implements CategoryDao {
         return "category";
     }
 
-    public void createCategory(Category category, Budget budget) {
+    public void create(Category category, Budget budget) {
         String sql = "INSERT INTO " + getTableName() + " (category_id, category_name, allotment, budget_id) " +
                 " VALUES ('" + category.getId() + "', '" + category.getName() + "', '" +
                 category.getAllotment() + "', '" + budget.getBudgetID() + "');";
@@ -40,7 +43,7 @@ public class CategorySqlDao extends SqlDao implements CategoryDao {
             e.printStackTrace();
         }
     }
-    public void updateCategory(Category category, Budget budget) {
+    public void update(Category category, Budget budget) {
         String sql = "UPDATE " + getTableName() + " SET category_name = '" + category.getName() +
                 "', allotment = " + category.getAllotment() + "' WHERE category_id = '" + category.getId() + "';";
         try {
@@ -49,21 +52,32 @@ public class CategorySqlDao extends SqlDao implements CategoryDao {
             e.printStackTrace();
         }
     }
-    public void deleteCategory(String id) {
-        String sql = "DELETE FROM " + getTableName() + " WHERE category_id = '" + id + "';";
+    public void delete(Category category) {
+        String sql = "DELETE FROM " + getTableName() + " WHERE category_id = '" + category.getId() + "';";
         try {
             delete(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public Category getCategory(String category_id) {
-        String sql = "SELECT * FROM " + getTableName() + " WHERE category_id=\'" + category_id + "\'";
+    public Category getCategory(Category category) {
+        String sql = "SELECT * FROM " + getTableName() + " WHERE category_id=\'" + category.getId() + "\'";
         Cursor cursor = (Cursor) executor.executeQuery(sql);
         cursor.moveToNext();
         String id = cursor.getString(0);
         String name = cursor.getString(1);
         float allotment = cursor.getFloat(2);
         return new Category(UUID.fromString(id), name, allotment);
+    }
+    public List<Category> getCategories(Budget budget) {
+        String sql = "SELECT * FROM " + getTableName() + " WHERE budget_id='" + budget.getBudgetID() + "';";
+        List<Category> categories = new ArrayList<>();
+        Cursor result = (Cursor) executor.executeQuery(sql);
+        while (result.moveToNext()) {
+            categories.add(new Category(UUID.fromString(result.getString(0)),
+                    result.getString(1),
+                    result.getFloat(2)));
+        }
+        return categories;
     }
 }

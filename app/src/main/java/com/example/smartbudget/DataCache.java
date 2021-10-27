@@ -1,6 +1,7 @@
 package com.example.smartbudget;
 
 import com.example.smartbudget.Model.Budget;
+import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.Model.User;
 
@@ -12,6 +13,7 @@ public class DataCache {
     private User _currUser;
     private List<Budget> _currBudgets;
     private Budget _budget;
+    private List<Category> _currCategories;
     private LocalDate _currDate;
     private List<Expenditure> _currExpenditure;
 
@@ -52,6 +54,15 @@ public class DataCache {
     public void updateBudgets(List<Budget> newBudgets){
         this._currBudgets.clear();
         _currBudgets.addAll(newBudgets);
+    }
+
+    public List<Category> getCurrCategories() { return _currCategories; }
+
+    public void setCurrCategories(List<Category> categories) { this._currCategories = categories; }
+
+    public void updateCategories(List<Category> categories) {
+        this._currCategories.clear();
+        _currCategories.addAll(categories);
     }
 
     public LocalDate getCurrDate() {

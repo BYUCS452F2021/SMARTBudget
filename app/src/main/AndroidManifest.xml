@@ -19,6 +19,11 @@
             android:name=".View.MainBudgetDashboardActivity"
             android:exported="false" />
         <activity
+            android:name=".View.SelectCategoryActivity"
+            android:exported="false" />
+        <activity android:name=".View.AddCategoryActivity"
+            android:exported="false"/>
+        <activity
             android:name=".View.AddBudgetActivity"
             android:exported="false" />
         <activity
