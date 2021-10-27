@@ -64,8 +64,11 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
             expenditures.add(
                     new Expenditure(
                     UUID.fromString(result.getString(0)),
-                    result.getFloat(1),
-                    LocalDateTime.parse(result.getString(2))
+                    result.getString(1),
+                    result.getFloat(2),
+                    result.getInt(3),
+                    result.getInt(4),
+                    result.getInt(5)
             ));
         }
         return expenditures;
