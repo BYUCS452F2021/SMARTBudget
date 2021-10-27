@@ -62,7 +62,7 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
     @Override
     public List<Expenditure> getExpendituresForDay(Budget budget, int year, int month, int day) {
         String sql = "SELECT DISTINCT * FROM " + getTableName() +
-                "JOIN category ON " + getTableName() + ".category_id = category.category_id" +
+                " INNER JOIN category ON " + getTableName() + ".category_id = category.category_id" +
                 " WHERE category.budget_id='" + budget.getBudgetID() + "' AND " +
                 getTableName() + ".expenditure_year='" + year + "' AND " +
                 getTableName() + ".expenditure_month='" + month + "' AND " +
@@ -72,16 +72,16 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
         while (result.moveToNext()){
             expenditures.add(
                     new Expenditure(
-                    UUID.fromString(result.getString(0)),
-                    result.getString(1),
-                    result.getFloat(2),
-                    result.getInt(3),
-                    result.getInt(4),
-                    result.getInt(5),
-                            new Category(UUID.fromString(result.getString(6)),
-                                    result.getString(7),
-                                    result.getFloat(8))
-            ));
+                            UUID.fromString(result.getString(0)),
+                            result.getString(2),
+                            result.getFloat(3),
+                            result.getInt(4),
+                            result.getInt(5),
+                            result.getInt(6),
+                            new Category(UUID.fromString(result.getString(7)),
+                                    result.getString(8),
+                                    result.getFloat(9)))
+            );
         }
         return expenditures;
     }
@@ -89,7 +89,7 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
     @Override
     public List<Expenditure> getExpendituresAll(Budget budget) {
         String sql = "SELECT DISTINCT * FROM " + getTableName() +
-                "JOIN category ON " + getTableName() + ".category_id = category.category_id" +
+                " INNER JOIN category ON " + getTableName() + ".category_id = category.category_id" +
                 " WHERE category.budget_id='" + budget.getBudgetID() + "';";
         List<Expenditure> expenditures = new ArrayList<>();
         Cursor result = (Cursor) executor.executeQuery(sql);
@@ -97,15 +97,15 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
             expenditures.add(
                     new Expenditure(
                             UUID.fromString(result.getString(0)),
-                            result.getString(1),
-                            result.getFloat(2),
-                            result.getInt(3),
+                            result.getString(2),
+                            result.getFloat(3),
                             result.getInt(4),
                             result.getInt(5),
-                            new Category(UUID.fromString(result.getString(6)),
-                                    result.getString(7),
-                                    result.getFloat(8))
-                    ));
+                            result.getInt(6),
+                            new Category(UUID.fromString(result.getString(7)),
+                                    result.getString(8),
+                                    result.getFloat(9)))
+            );
         }
         return expenditures;
     }

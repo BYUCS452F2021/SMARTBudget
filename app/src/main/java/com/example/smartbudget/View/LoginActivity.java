@@ -6,7 +6,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.smartbudget.DAO.relational.CategorySqlDao;
 import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
+import com.example.smartbudget.DAO.relational.ExpenditureSqlDao;
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Budget;
 import com.example.smartbudget.Model.Category;
@@ -30,14 +32,6 @@ public class LoginActivity extends SmartBudgetActivity implements LoginPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Budget budget = new Budget("test");
-        Category category = new Category("Name of Category", 0.0f);
-        DatabaseSqlManager.getInstance().createCategoryDao().createCategory(category, budget);
-        DatabaseSqlManager.getInstance().createExpenditureDao().createExpenditure(new Expenditure(
-                category, "This is a description", 8.5f
-        ));
-        DatabaseSqlManager.getInstance().createExpenditureDao().getExpendituresAll()
-
         _loginPresenter = new LoginPresenter(this);
         _registerPresenter = new RegisterPresenter(this);
 
@@ -53,6 +47,14 @@ public class LoginActivity extends SmartBudgetActivity implements LoginPresenter
     }
 
     private void onClickLogin(){
+//        Budget budget = new Budget("test");
+//        Category category = new Category("Name of Category", 0.0f);
+//        Expenditure expenditure = new Expenditure(
+//                category, "This is a description", 8.5f
+//        );
+//        DatabaseSqlManager.getInstance().createCategoryDao().createCategory(category, budget);
+//        DatabaseSqlManager.getInstance().createExpenditureDao().createExpenditure(expenditure);
+//        DatabaseSqlManager.getInstance().createExpenditureDao().getExpendituresForDay(budget, 2021, 10, 27);
         String username = _loginNameTextBox.getText().toString();
         String password = _loginPasswordTextBox.getText().toString();
         if(username.equals("") || password.equals("")){
