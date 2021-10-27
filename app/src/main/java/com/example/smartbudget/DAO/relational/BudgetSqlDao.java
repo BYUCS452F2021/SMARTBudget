@@ -64,11 +64,22 @@ public class BudgetSqlDao extends SqlDao implements BudgetDao {
 
     @Override
     public void delete(Budget budget) {
-
+        String sql = "DELETE FROM " + getTableName() + " WHERE budget_id = '" + budget.getBudgetID() + "';";
+        try {
+            delete(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(Budget budget, User user) {
-
+        String sql = "UPDATE " + getTableName() + " SET budget_name = '" + budget.getName() +
+                "', timestamp = " + budget.getTimestamp() + "' WHERE budget_id = '" + budget.getBudgetID() + "';";
+        try {
+            update(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
