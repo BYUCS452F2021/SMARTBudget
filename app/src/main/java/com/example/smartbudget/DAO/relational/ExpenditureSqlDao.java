@@ -110,7 +110,21 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
         return expenditures;
     }
 
-    // also needs an update
-    // look up SQL update syntax (take in an Expenditure)
+    // TODO: update/delete eventually
+
+    // look at AddBudget stuff to make it so you can add an Expenditure
+
+    // Presenter, Runnable (presenter runs), Interface that Activity implements, request, response,
+    // also need a handler?
+
+    // BudgetTable query all the expenditures for one day
+
+    // make it so the app can give
+
+    // also need a request and a response
+
+    // request (budget, year, month, day)
+    // change loadYear to loadDay
+
 
 }

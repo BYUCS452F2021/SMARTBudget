@@ -1,10 +1,12 @@
 package com.example.smartbudget;
 
 import com.example.smartbudget.Handler.AddBudgetHandler;
+import com.example.smartbudget.Handler.AddExpenditureHandler;
 import com.example.smartbudget.Handler.GetBudgetsHandler;
 import com.example.smartbudget.Handler.LoginHandler;
 import com.example.smartbudget.Handler.RegisterHandler;
 import com.example.smartbudget.Request.AddBudgetRequest;
+import com.example.smartbudget.Request.AddExpenditureRequest;
 import com.example.smartbudget.Request.DeleteBudgetRequest;
 import com.example.smartbudget.Request.EditBudgetRequest;
 import com.example.smartbudget.Request.EditCategoriesRequest;
@@ -17,6 +19,7 @@ import com.example.smartbudget.Request.ReadBudgetRequest;
 import com.example.smartbudget.Request.RegisterRequest;
 import com.example.smartbudget.Request.ReportDayRequest;
 import com.example.smartbudget.Response.AddBudgetResponse;
+import com.example.smartbudget.Response.AddExpenditureResponse;
 import com.example.smartbudget.Response.DeleteBudgetResponse;
 import com.example.smartbudget.Response.EditBudgetResponse;
 import com.example.smartbudget.Response.EditCategoriesResponse;
@@ -34,6 +37,12 @@ public class ServerProxy {
     public AddBudgetResponse addBudget(AddBudgetRequest request) {
         return new AddBudgetHandler().addBudget(request);
     }
+
+    // this makes me nervous, but I think this is right
+    public AddExpenditureResponse addExpenditure(AddExpenditureRequest request) {
+        return new AddExpenditureHandler().addExpenditure(request);
+    }
+
 
     public ReadBudgetResponse readBudget(ReadBudgetRequest request) {
         return null;
