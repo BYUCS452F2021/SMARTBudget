@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.smartbudget.DataCache;
+import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.R;
 
@@ -36,10 +37,10 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
 
 
         List<Expenditure> expenditures = new ArrayList<>();
-        expenditures.add(new Expenditure("a descriptioin", 4.56f));
-        expenditures.add(new Expenditure("Another description", 7.12f));
-        expenditures.add(new Expenditure("Another Thing", 20.45f));
-        expenditures.add(new Expenditure("Another nother thing", 100f));
+        expenditures.add(new Expenditure(new Category("Rent", 0), "a descriptioin", 4.56f));
+        expenditures.add(new Expenditure(new Category("Rent", 0), "Another description", 7.12f));
+        expenditures.add(new Expenditure(new Category("Rent", 0), "Another Thing", 20.45f));
+        expenditures.add(new Expenditure(new Category("Rent", 0), "Another nother thing", 100f));
         DataCache.getInstance().setCurrExpenditure(expenditures);
 
         // TODO actual line here, take out dummy data

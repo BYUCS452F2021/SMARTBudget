@@ -6,7 +6,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
 import com.example.smartbudget.DataCache;
+import com.example.smartbudget.Model.Budget;
+import com.example.smartbudget.Model.Category;
+import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.Presenter.LoginPresenter;
 import com.example.smartbudget.Presenter.RegisterPresenter;
 import com.example.smartbudget.R;
@@ -25,6 +29,14 @@ public class LoginActivity extends SmartBudgetActivity implements LoginPresenter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Budget budget = new Budget("test");
+        Category category = new Category("Name of Category", 0.0f);
+        DatabaseSqlManager.getInstance().createCategoryDao().createCategory(category, budget);
+        DatabaseSqlManager.getInstance().createExpenditureDao().createExpenditure(new Expenditure(
+                category, "This is a description", 8.5f
+        ));
+        DatabaseSqlManager.getInstance().createExpenditureDao().getExpendituresAll()
 
         _loginPresenter = new LoginPresenter(this);
         _registerPresenter = new RegisterPresenter(this);

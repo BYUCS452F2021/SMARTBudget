@@ -16,12 +16,13 @@ public class Expenditure {
         this.amount = amount;
         this.timeStamp = LocalDate.now();
     }
-
-    public Expenditure(UUID id, String description, float amount, int year, int month, int day) {
+    public Expenditure(UUID id, String description, float amount, int year, int month, int day,
+                       Category category) {
         this.id = id;
         this.description = description;
         this.amount = amount;
         this.timeStamp = LocalDate.of(year, month, day);
+        this.category = category;
     }
 
     public UUID getId() {
@@ -48,4 +49,7 @@ public class Expenditure {
         return timeStamp.getDayOfMonth();
     }
 
+    public Category getCategory(){
+        return category;
+    }
 }
