@@ -18,6 +18,7 @@ public class Category {
     public Category(String name, float allotment) {
         this.name = name;
         this.allotment = allotment;
+        this.id = UUID.randomUUID();
     }
 
     public String getName() {

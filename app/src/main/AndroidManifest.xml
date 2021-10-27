@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartBudget">
         <activity
+            android:name=".View.AddExpenditureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.ViewDaysExpendituresActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.MainBudgetDashboardActivity"
             android:exported="false" />
         <activity

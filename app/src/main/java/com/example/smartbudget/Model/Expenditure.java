@@ -6,11 +6,12 @@ import java.util.UUID;
 
 public class Expenditure {
     UUID id;
+    Category category;
     String description;
     float amount;
     LocalDate timeStamp;
 
-    public Expenditure(String description, float amount) {
+    public Expenditure(Category category, String description, float amount) {
         this.description = description;
         this.amount = amount;
         this.timeStamp = LocalDate.now();

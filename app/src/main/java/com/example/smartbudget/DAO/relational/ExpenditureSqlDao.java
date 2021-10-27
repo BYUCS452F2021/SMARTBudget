@@ -35,7 +35,7 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
         String sql = "INSERT INTO " + getTableName() + " (expenditure_id, category_id, " +
                 "expenditure_description, expenditure_amount, expenditure_year, expenditure_month," +
                 "expenditure_day)" +
-                " VALUES ('" + expenditure.getId() + "','" + expenditure.getCategory() + "','" + expenditure.getDescription()
+                " VALUES ('" + expenditure.getId() + "','" + /*expenditure.getCategory() +*/ "','" + expenditure.getDescription()
                 + "','" + expenditure.getAmount() + "','" + expenditure.getYear() + "','" + expenditure.getMonth() + "','" +
                 expenditure.getDay() + "');";
         try {
