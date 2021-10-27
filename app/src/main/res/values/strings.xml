@@ -13,5 +13,7 @@
     <string name="add_expenditure">Add Expenditure</string>
     <string name="add_category">Add Category</string>
     <string name="done">Done</string>
+    <string name="description">Description</string>
+    <string name="amount">Amount</string>
     <!-- Strings used for fragments for navigation -->
 </resources>

@@ -123,10 +123,8 @@ class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.Expendi
     public void onBindViewHolder(ExpenditureViewHolder holder, int position) {
         Expenditure expenditure = expenditures.get(position);
         holder.descriptionDisplay.setText(expenditure.getDescription());
-        // TODO format the string of amount
-        holder.amountDisplay.setText(String.format("", expenditure.getAmount()));
-        // TODO Not sure how to handle this either, but needs a category
-        holder.categoryDisplay.setText("Category");
+        holder.amountDisplay.setText(String.format("$%.2f", expenditure.getAmount()));
+        holder.categoryDisplay.setText(expenditure.getCategory().getName());
     }
 
     @Override
