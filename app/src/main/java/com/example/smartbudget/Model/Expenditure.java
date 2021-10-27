@@ -11,12 +11,12 @@ public class Expenditure {
     float amount;
     LocalDate timeStamp;
 
-    public Expenditure(Category category, String description, float amount) {
+    public Expenditure(Category category, String description, float amount, LocalDate timeStamp) {
         this.category = category;
         this.description = description;
         this.amount = amount;
-        this.timeStamp = LocalDate.now();
         this.id = UUID.randomUUID();
+        this.timeStamp = timeStamp;
     }
     public Expenditure(UUID id, String description, float amount, int year, int month, int day,
                        Category category) {

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Budget;
+import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.Presenter.AddExpenditurePresenter;
 import com.example.smartbudget.R;
@@ -42,11 +43,6 @@ public class AddExpenditureActivity extends SmartBudgetActivity implements AddEx
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        presenter.addExpenditure(
-                new Expenditure(expenditureDescription.getText().toString()),
-                DataCache.getInstance().getCurrUser()
-        );
-
         if (expenditureAmount.getText().toString().isEmpty()){
             Toast.makeText(this,
                     "Please enter an amount for your expenditure",
@@ -54,7 +50,11 @@ public class AddExpenditureActivity extends SmartBudgetActivity implements AddEx
             return;
         }
         presenter.addExpenditure(
-                new Expenditure(expenditureAmount.getText().toString()),
+                //TODO: make sure isn't a hard-coded category
+                new Expenditure(new Category("Category", 0.0f),
+                        expenditureDescription.getText().toString(),
+                        Float.parseFloat(expenditureAmount.getText().toString()),
+                        DataCache.getInstance().getCurrDate()),
                 DataCache.getInstance().getCurrUser()
         );
     }
