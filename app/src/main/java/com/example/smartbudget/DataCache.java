@@ -1,8 +1,10 @@
 package com.example.smartbudget;
 
 import com.example.smartbudget.Model.Budget;
+import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.Model.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DataCache {
@@ -10,6 +12,8 @@ public class DataCache {
     private User _currUser;
     private List<Budget> _currBudgets;
     private Budget _budget;
+    private LocalDate _currDate;
+    private List<Expenditure> _currExpenditure;
 
     private DataCache() {
     }
@@ -48,5 +52,21 @@ public class DataCache {
     public void updateBudgets(List<Budget> newBudgets){
         this._currBudgets.clear();
         _currBudgets.addAll(newBudgets);
+    }
+
+    public LocalDate getCurrDate() {
+        return _currDate;
+    }
+
+    public void setCurrDate(LocalDate _currDate) {
+        this._currDate = _currDate;
+    }
+
+    public List<Expenditure> getCurrExpenditure() {
+        return _currExpenditure;
+    }
+
+    public void setCurrExpenditure(List<Expenditure> _currExpenditure) {
+        this._currExpenditure = _currExpenditure;
     }
 }

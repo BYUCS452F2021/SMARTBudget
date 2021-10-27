@@ -1,10 +1,7 @@
 package com.example.smartbudget.Model;
 
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 public class Expenditure {
@@ -12,21 +9,23 @@ public class Expenditure {
     Category category;
     String description;
     float amount;
-    LocalDateTime timeStamp;
+    LocalDate timeStamp;
 
     public Expenditure(Category category, String description, float amount) {
-        this.category = category;
         this.description = description;
         this.amount = amount;
-        this.timeStamp = LocalDateTime.now();
+        this.timeStamp = LocalDate.now();
+    }
+
+    public Expenditure(UUID id, String description, float amount, int year, int month, int day) {
+        this.id = id;
+        this.description = description;
+        this.amount = amount;
+        this.timeStamp = LocalDate.of(year, month, day);
     }
 
     public UUID getId() {
         return id;
-    }
-
-    public UUID getCategory() {
-        return category.getId();
     }
 
     public String getDescription() {

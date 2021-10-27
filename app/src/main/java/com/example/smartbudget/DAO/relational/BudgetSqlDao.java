@@ -61,4 +61,14 @@ public class BudgetSqlDao extends SqlDao implements BudgetDao {
         }
         return budgets;
     }
+
+    @Override
+    public void delete(Budget budget) {
+
+    }
+
+    @Override
+    public void update(Budget budget, User user) {
+
+    }
 }
