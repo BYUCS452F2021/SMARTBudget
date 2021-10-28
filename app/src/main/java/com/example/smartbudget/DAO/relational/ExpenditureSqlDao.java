@@ -117,6 +117,7 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
 
     // Presenter, Runnable (presenter runs), Interface that Activity implements, request, response,
     // also need a handler?
+    // DONE?
 
     // TASK #2:
     // BudgetTable query all the expenditures for one day
