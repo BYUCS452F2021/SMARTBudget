@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,13 +18,15 @@ import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Presenter.CategoryListPresenter;
 import com.example.smartbudget.R;
+import com.example.smartbudget.Response.DeleteCategoryResponse;
 import com.example.smartbudget.Response.GetCategoriesResponse;
+import com.example.smartbudget.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectCategoryActivity extends SmartBudgetActivity implements ListItemClickListener, CategoryListPresenter.CategoryListView {
+public class SelectCategoryActivity extends SmartBudgetActivity implements ListItemClickListener, CategoryListPresenter.CategoryListView, PopupMenu.OnMenuItemClickListener {
 
     private RecyclerView categoryView;
     private RecyclerView.Adapter<CategoryAdapter.ViewHolder> adapter;
@@ -64,7 +69,8 @@ public class SelectCategoryActivity extends SmartBudgetActivity implements ListI
 
     @Override
     public void onLongItemClick(int position, View view) {
-
+        DataCache.getInstance().setCurrCategory(categories.get(position));
+        Utils.showPopup(this, view, R.menu.delete_menu, this);
     }
 
     @Override
@@ -75,9 +81,31 @@ public class SelectCategoryActivity extends SmartBudgetActivity implements ListI
         }
     }
 
+    @Override
+    public void categoryDeleted(DeleteCategoryResponse response) {
+        if (response.isSuccess()){
+            Category category = DataCache.getInstance().getCurrCategory();
+            int pos = categories.indexOf(category);
+            categories.remove(pos);
+            runOnUiThread(()->{adapter.notifyItemRemoved(pos);});
+        }
+        else {
+            Toast.makeText(this, "Failed to delete category", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void launchCreateCategoryActivity(){
         Intent intent = new Intent(this, AddCategoryActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.delete_menu_option){
+            presenter.deleteCategories(DataCache.getInstance().getCurrCategory());
+            return true;
+        }
+        return false;
     }
 }
 
@@ -104,6 +132,7 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
             categoryTextView = itemView.findViewById(R.id.budget_name_view);
             categoryGoalView = itemView.findViewById(R.id.budget_goal_view);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -113,7 +142,7 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
         @Override
         public boolean onLongClick(View v) {
-
+            listener.onLongItemClick(getAdapterPosition(), v);
             return true;
         }
     }

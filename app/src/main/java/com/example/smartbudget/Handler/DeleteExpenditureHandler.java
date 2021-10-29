@@ -7,8 +7,7 @@ import com.example.smartbudget.Response.DeleteExpenditureResponse;
 public class DeleteExpenditureHandler {
     public DeleteExpenditureResponse deleteExpenditure(DeleteExpenditureRequest request){
         try {
-            // TODO delete expenditures here
-            DatabaseSqlManager.getInstance().createExpenditureDao();
+            DatabaseSqlManager.getInstance().createExpenditureDao().delete(request.getExpenditure());
             return new DeleteExpenditureResponse();
         } catch (Exception e){
             return new DeleteExpenditureResponse(e.getMessage());

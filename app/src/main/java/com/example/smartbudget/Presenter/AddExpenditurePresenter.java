@@ -8,6 +8,7 @@ import com.example.smartbudget.Request.AddExpenditureRequest;
 import com.example.smartbudget.Request.GetCategoriesRequest;
 import com.example.smartbudget.Response.AddBudgetResponse;
 import com.example.smartbudget.Response.AddExpenditureResponse;
+import com.example.smartbudget.Response.DeleteCategoryResponse;
 import com.example.smartbudget.Response.GetCategoriesResponse;
 import com.example.smartbudget.Runnable.AddBudgetRunnable;
 import com.example.smartbudget.Runnable.AddExpenditureRunnable;
@@ -44,5 +45,10 @@ public class AddExpenditurePresenter implements GetCategoriesPresenter {
     @Override
     public void categoriesLoaded(GetCategoriesResponse response){
         view.categoriesLoaded(response);
+    }
+
+    @Override
+    public void categoryDeleted(DeleteCategoryResponse response) {
+
     }
 }
