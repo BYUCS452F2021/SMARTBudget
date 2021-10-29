@@ -11,6 +11,7 @@ public class DataCache {
     private static DataCache _instance;
     private User _currUser;
     private List<Budget> _currBudgets;
+    private List<Expenditure> _currExpenditures;
     private Budget _budget;
     private LocalDate _currDate;
     private List<Expenditure> _currExpenditure;
@@ -52,6 +53,11 @@ public class DataCache {
     public void updateBudgets(List<Budget> newBudgets){
         this._currBudgets.clear();
         _currBudgets.addAll(newBudgets);
+    }
+
+    public void updateExpenditures(List<Expenditure> newExpenditures){
+        this._currExpenditures.clear();
+        _currExpenditures.addAll(newExpenditures);
     }
 
     public LocalDate getCurrDate() {

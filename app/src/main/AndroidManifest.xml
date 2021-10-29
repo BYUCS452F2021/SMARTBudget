@@ -21,6 +21,7 @@
         <activity
             android:name=".View.AddBudgetActivity"
             android:exported="false" />
+
         <activity
             android:name=".View.SelectBudgetActivity"
             android:exported="false" />

@@ -3,6 +3,7 @@ package com.example.smartbudget;
 import com.example.smartbudget.Handler.AddBudgetHandler;
 import com.example.smartbudget.Handler.AddExpenditureHandler;
 import com.example.smartbudget.Handler.GetBudgetsHandler;
+import com.example.smartbudget.Handler.GetExpendituresForDayHandler;
 import com.example.smartbudget.Handler.LoginHandler;
 import com.example.smartbudget.Handler.RegisterHandler;
 import com.example.smartbudget.Request.AddBudgetRequest;
@@ -12,6 +13,7 @@ import com.example.smartbudget.Request.EditBudgetRequest;
 import com.example.smartbudget.Request.EditCategoriesRequest;
 import com.example.smartbudget.Request.EditExpendituresRequest;
 import com.example.smartbudget.Request.GetBudgetsRequest;
+import com.example.smartbudget.Request.GetExpendituresForDayRequest;
 import com.example.smartbudget.Request.GetStatsRequest;
 import com.example.smartbudget.Request.LoadYearRequest;
 import com.example.smartbudget.Request.LoginRequest;
@@ -25,6 +27,7 @@ import com.example.smartbudget.Response.EditBudgetResponse;
 import com.example.smartbudget.Response.EditCategoriesResponse;
 import com.example.smartbudget.Response.EditExpendituresResponse;
 import com.example.smartbudget.Response.GetBudgetResponse;
+import com.example.smartbudget.Response.GetExpenditureForDayResponse;
 import com.example.smartbudget.Response.GetStatsResponse;
 import com.example.smartbudget.Response.LoadYearResponse;
 import com.example.smartbudget.Response.LoginResponse;
@@ -88,5 +91,9 @@ public class ServerProxy {
 
     public GetBudgetResponse getBudgets(GetBudgetsRequest request){
         return new GetBudgetsHandler().getBudgets(request);
+    }
+
+    public GetExpenditureForDayResponse getExpenditures(GetExpendituresForDayRequest request){
+        return new GetExpendituresForDayHandler().getExpenditures(request);
     }
 }

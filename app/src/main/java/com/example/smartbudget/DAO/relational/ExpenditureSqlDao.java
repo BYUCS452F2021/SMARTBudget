@@ -120,6 +120,8 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
     // DONE?
 
     // TASK #2:
+
+    // Follow SelectBudget stuff (Presenter--ExpenditureList, Runnable --GetDayOfExpend, Interface, request-GetExpenditure, response, also a handler
     // BudgetTable query all the expenditures for one day
 
     // make it so the app can give

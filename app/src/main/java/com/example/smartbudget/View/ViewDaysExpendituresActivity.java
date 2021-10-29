@@ -18,14 +18,17 @@ import android.widget.TextView;
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.Expenditure;
+import com.example.smartbudget.Presenter.ExpenditureListForDayPresenter;
 import com.example.smartbudget.R;
+import com.example.smartbudget.Response.GetExpenditureForDayResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements ListItemClickListener{
+public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements ListItemClickListener, ExpenditureListForDayPresenter.ExpenditureListForDayView {
     private RecyclerView expenditureView;
     private ExpenditureAdapter adapter;
+    private List<Expenditure> expenditures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,14 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
     @Override
     public void onListItemClick(int position) {
         // TODO edit budget activity
+    }
+
+    @Override
+    public void listFetched(GetExpenditureForDayResponse response) {
+        if (response.isSuccess()) {
+            DataCache.getInstance().updateExpenditures(response.getExpenditures());
+            adapter.notifyItemRangeInserted(0, expenditures.size());
+        }
     }
 }
 
