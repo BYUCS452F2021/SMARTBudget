@@ -8,7 +8,7 @@ import com.example.smartbudget.Runnable.AddBudgetRunnable;
 
 public class AddBudgetPresenter {
     public interface AddBudgetView{
-        public void budgetAdded(AddBudgetResponse response);
+        void budgetAdded(AddBudgetResponse response);
     }
 
     private AddBudgetView view;

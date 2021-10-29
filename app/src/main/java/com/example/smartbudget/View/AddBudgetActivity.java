@@ -11,18 +11,13 @@ import com.example.smartbudget.Presenter.AddBudgetPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.AddBudgetResponse;
 
-public class AddBudgetActivity extends SmartBudgetActivity implements AddBudgetPresenter.AddBudgetView {
-
-    private EditText budgetInput;
+public class AddBudgetActivity extends BudgetEditActivity implements AddBudgetPresenter.AddBudgetView {
     private AddBudgetPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_budget);
 
-        Button addBudgetBtn = findViewById(R.id.finish_budget_btn);
-        budgetInput = findViewById(R.id.budget_input_view);
         presenter = new AddBudgetPresenter(this);
 
         addBudgetBtn.setOnClickListener(v-> addBudget());

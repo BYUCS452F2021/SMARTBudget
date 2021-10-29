@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartBudget">
         <activity
+            android:name=".View.UpdateBudgetActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.AddExpenditureActivity"
             android:exported="false" />
         <activity
@@ -21,12 +24,12 @@
         <activity
             android:name=".View.SelectCategoryActivity"
             android:exported="false" />
-        <activity android:name=".View.AddCategoryActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".View.AddCategoryActivity"
+            android:exported="false" />
         <activity
             android:name=".View.AddBudgetActivity"
             android:exported="false" />
-
         <activity
             android:name=".View.SelectBudgetActivity"
             android:exported="false" />

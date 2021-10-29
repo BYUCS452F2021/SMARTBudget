@@ -5,14 +5,18 @@ import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.Model.User;
 import com.example.smartbudget.Request.AddBudgetRequest;
 import com.example.smartbudget.Request.AddExpenditureRequest;
+import com.example.smartbudget.Request.GetCategoriesRequest;
 import com.example.smartbudget.Response.AddBudgetResponse;
 import com.example.smartbudget.Response.AddExpenditureResponse;
+import com.example.smartbudget.Response.GetCategoriesResponse;
 import com.example.smartbudget.Runnable.AddBudgetRunnable;
 import com.example.smartbudget.Runnable.AddExpenditureRunnable;
+import com.example.smartbudget.Runnable.GetCategoriesRunnable;
 
-public class AddExpenditurePresenter {
+public class AddExpenditurePresenter implements GetCategoriesPresenter {
     public interface AddExpenditureView{
-        public void expenditureAdded(AddExpenditureResponse response);
+        void expenditureAdded(AddExpenditureResponse response);
+        void categoriesLoaded(GetCategoriesResponse response);
     }
 
     private AddExpenditureView view;
@@ -29,5 +33,16 @@ public class AddExpenditurePresenter {
 
     public void expenditureAdded(AddExpenditureResponse response){
         view.expenditureAdded(response);
+    }
+
+    public void getCategories(Budget budget){
+        GetCategoriesRequest request = new GetCategoriesRequest(budget);
+        GetCategoriesRunnable runnable = new GetCategoriesRunnable(this, request);
+        new Thread(runnable).start();
+    }
+
+    @Override
+    public void categoriesLoaded(GetCategoriesResponse response){
+        view.categoriesLoaded(response);
     }
 }

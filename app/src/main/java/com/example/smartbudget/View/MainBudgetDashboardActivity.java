@@ -4,17 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
-
-import androidx.annotation.NonNull;
 
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.R;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class MainBudgetDashboardActivity extends SmartBudgetActivity {
@@ -41,7 +35,7 @@ public class MainBudgetDashboardActivity extends SmartBudgetActivity {
     }
 
     private void launchDayViewActivity(){
-        DataCache.getInstance().setCurrExpenditure(new ArrayList<>());
+        DataCache.getInstance().setCurrExpenditures(new ArrayList<>());
         Intent intent = new Intent(this, ViewDaysExpendituresActivity.class);
         startActivity(intent);
     }

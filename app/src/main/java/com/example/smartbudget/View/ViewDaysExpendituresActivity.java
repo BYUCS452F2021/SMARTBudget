@@ -13,20 +13,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smartbudget.DataCache;
-import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.Expenditure;
-import com.example.smartbudget.Presenter.BudgetListPresenter;
 import com.example.smartbudget.Presenter.ExpenditureListForDayPresenter;
 import com.example.smartbudget.R;
+import com.example.smartbudget.Response.DeleteExpenditureResponse;
 import com.example.smartbudget.Response.GetExpenditureForDayResponse;
+import com.example.smartbudget.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements ListItemClickListener, ExpenditureListForDayPresenter.ExpenditureListForDayView {
+public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements ListItemClickListener, ExpenditureListForDayPresenter.ExpenditureListForDayView, PopupMenu.OnMenuItemClickListener {
     private RecyclerView expenditureView;
     private ExpenditureAdapter adapter;
     private List<Expenditure> expenditures;
@@ -41,26 +43,22 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
         presenter = new ExpenditureListForDayPresenter(this);
         presenter.getExpendituresForDay(DataCache.getInstance().getBudget());
 
-        DataCache.getInstance().setCurrExpenditure(new ArrayList<>());
-        expenditures = DataCache.getInstance().getCurrExpenditure();
+        DataCache.getInstance().setCurrExpenditures(new ArrayList<>());
+        expenditures = DataCache.getInstance().getCurrExpenditures();
 
         Button addExpenditureBtn = findViewById(R.id.add_expenditure);
         addExpenditureBtn.setOnClickListener(v->launchActivity(AddExpenditureActivity.class));
 
-//        List<Expenditure> expenditures = new ArrayList<>();
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "a descriptioin", 4.56f));
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "Another description", 7.12f));
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "Another Thing", 20.45f));
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "Another nother thing", 100f));
-//        DataCache.getInstance().setCurrExpenditure(expenditures);
-
-        // TODO actual line here, take out dummy data
-        //DataCache.getInstance().setCurrExpenditure(new ArrayList<>());
-
         expenditureView = findViewById(R.id.expenditure_day_view);
-        adapter = new ExpenditureAdapter(DataCache.getInstance().getCurrExpenditure(), this);
+        adapter = new ExpenditureAdapter(DataCache.getInstance().getCurrExpenditures(), this);
         expenditureView.setAdapter(adapter);
         expenditureView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -90,11 +88,36 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
     }
 
     @Override
+    public void onLongItemClick(int position, View view) {
+        Utils.showPopup(this, view, R.menu.delete_menu, this);
+    }
+
+    @Override
     public void listFetched(GetExpenditureForDayResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateExpenditures(response.getExpenditures());
             adapter.notifyItemRangeInserted(0, expenditures.size());
         }
+    }
+
+    @Override
+    public void expenditureDeleted(DeleteExpenditureResponse response) {
+        if (response.isSuccess()) {
+            int pos = expenditures.indexOf(DataCache.getInstance().getCurrExpenditure());
+            expenditures.remove(pos);
+            runOnUiThread(()->{adapter.notifyItemRemoved(pos);});
+        }
+        else {
+            Toast.makeText(this, "Failed to delete expenditure", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.delete_menu_option){
+            presenter.deleteExpenditure(DataCache.getInstance().getCurrExpenditure());
+        }
+        return false;
     }
 }
 
@@ -102,7 +125,7 @@ class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.Expendi
     private List<Expenditure> expenditures;
     private ListItemClickListener listener;
 
-    protected static class ExpenditureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    protected static class ExpenditureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView categoryDisplay;
         public TextView descriptionDisplay;
         public TextView amountDisplay;
@@ -114,11 +137,19 @@ class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.Expendi
             amountDisplay = itemView.findViewById(R.id.expenditure_amount_view);
             this.listener = listener;
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             listener.onListItemClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            DataCache.getInstance().setCurrExpenditure(getAdapterPosition());
+            listener.onLongItemClick(getAdapterPosition(), v);
+            return false;
         }
     }
 

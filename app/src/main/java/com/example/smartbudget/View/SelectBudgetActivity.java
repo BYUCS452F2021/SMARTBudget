@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,13 +20,15 @@ import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Budget;
 import com.example.smartbudget.Presenter.BudgetListPresenter;
 import com.example.smartbudget.R;
+import com.example.smartbudget.Response.DeleteBudgetResponse;
 import com.example.smartbudget.Response.GetBudgetResponse;
+import com.example.smartbudget.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectBudgetActivity extends SmartBudgetActivity implements ListItemClickListener, BudgetListPresenter.BudgetListView {
+public class SelectBudgetActivity extends SmartBudgetActivity implements ListItemClickListener, BudgetListPresenter.BudgetListView, PopupMenu.OnMenuItemClickListener {
 
     private RecyclerView budgetView;
     private RecyclerView.Adapter<BudgetAdapter.ViewHolder> adapter;
@@ -64,10 +70,28 @@ public class SelectBudgetActivity extends SmartBudgetActivity implements ListIte
     }
 
     @Override
+    public void onLongItemClick(int position, View view) {
+        DataCache.getInstance().setBudget(position);
+        Utils.showPopup(this, view, R.menu.edit_menu, this);
+    }
+
+    @Override
     public void listFetched(GetBudgetResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateBudgets(response.getBudgets());
             adapter.notifyItemRangeInserted(0, budgets.size());
+        }
+    }
+
+    @Override
+    public void budgetDeleted(DeleteBudgetResponse response) {
+        if (response.isSuccess()){
+            int pos = budgets.indexOf(DataCache.getInstance().getBudget());
+            budgets.remove(pos);
+            runOnUiThread(()->{adapter.notifyItemRemoved(pos);});
+        }
+        else {
+            Toast.makeText(this, "Failed to delete", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -80,10 +104,29 @@ public class SelectBudgetActivity extends SmartBudgetActivity implements ListIte
         Intent intent = new Intent(this, MainBudgetDashboardActivity.class);
         startActivity(intent);
     }
+
+    private void launchUpdateBudgetActivity(){
+        Intent intent = new Intent(this, UpdateBudgetActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.delete_option){
+            presenter.deleteBudget(DataCache.getInstance().getBudget());
+            return true;
+        }
+        else if (item.getItemId() == R.id.update_option){
+            launchUpdateBudgetActivity();
+            return true;
+        }
+        return false;
+    }
 }
 
 interface ListItemClickListener{
     void onListItemClick(int position);
+    void onLongItemClick(int position, View view);
 }
 
 class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
@@ -95,7 +138,7 @@ class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
         this.listener = listener;
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         public TextView budgetTextView;
         public TextView budgetGoalView;
         private ListItemClickListener listener;
@@ -105,11 +148,18 @@ class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
             budgetTextView = itemView.findViewById(R.id.budget_name_view);
             budgetGoalView = itemView.findViewById(R.id.budget_goal_view);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             listener.onListItemClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            listener.onLongItemClick(getAdapterPosition(), v);
+            return true;
         }
     }
 
