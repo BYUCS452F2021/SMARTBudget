@@ -10,8 +10,10 @@ import com.example.smartbudget.Model.User;
 import java.util.List;
 
 public interface ExpenditureDao {
-    // I think this is the same thing as Budget's insert?
     void createExpenditure(Expenditure expenditure);
     List<Expenditure> getExpendituresForDay(Budget budget, int year, int month, int day);
     List<Expenditure> getExpendituresAll(Budget budget);
+    void delete(Expenditure expenditure);
+    void update(Expenditure expenditure, Category category);
+
 }
