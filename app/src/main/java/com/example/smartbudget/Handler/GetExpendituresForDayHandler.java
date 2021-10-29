@@ -3,7 +3,6 @@ package com.example.smartbudget.Handler;
 import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Request.GetExpendituresForDayRequest;
-import com.example.smartbudget.Response.GetBudgetResponse;
 import com.example.smartbudget.Response.GetExpenditureForDayResponse;
 
 public class GetExpendituresForDayHandler {

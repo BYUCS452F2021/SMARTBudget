@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 
 public class MainBudgetDashboardActivity extends SmartBudgetActivity {
 
@@ -30,6 +31,7 @@ public class MainBudgetDashboardActivity extends SmartBudgetActivity {
     }
 
     private void launchDayViewActivity(){
+        DataCache.getInstance().setCurrExpenditure(new ArrayList<>());
         Intent intent = new Intent(this, ViewDaysExpendituresActivity.class);
         startActivity(intent);
     }

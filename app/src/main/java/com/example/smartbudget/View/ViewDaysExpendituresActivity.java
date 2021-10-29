@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.Expenditure;
+import com.example.smartbudget.Presenter.BudgetListPresenter;
 import com.example.smartbudget.Presenter.ExpenditureListForDayPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.GetExpenditureForDayResponse;
@@ -30,21 +31,28 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
     private ExpenditureAdapter adapter;
     private List<Expenditure> expenditures;
 
+    private ExpenditureListForDayPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_days_expenditures);
 
+        presenter = new ExpenditureListForDayPresenter(this);
+        presenter.getExpendituresForDay(DataCache.getInstance().getBudget());
+
+        DataCache.getInstance().setCurrExpenditure(new ArrayList<>());
+        expenditures = DataCache.getInstance().getCurrExpenditure();
+
         Button addExpenditureBtn = findViewById(R.id.add_expenditure);
         addExpenditureBtn.setOnClickListener(v->launchActivity(AddExpenditureActivity.class));
 
-
-        List<Expenditure> expenditures = new ArrayList<>();
+//        List<Expenditure> expenditures = new ArrayList<>();
 //        expenditures.add(new Expenditure(new Category("Rent", 0), "a descriptioin", 4.56f));
 //        expenditures.add(new Expenditure(new Category("Rent", 0), "Another description", 7.12f));
 //        expenditures.add(new Expenditure(new Category("Rent", 0), "Another Thing", 20.45f));
 //        expenditures.add(new Expenditure(new Category("Rent", 0), "Another nother thing", 100f));
-        DataCache.getInstance().setCurrExpenditure(expenditures);
+//        DataCache.getInstance().setCurrExpenditure(expenditures);
 
         // TODO actual line here, take out dummy data
         //DataCache.getInstance().setCurrExpenditure(new ArrayList<>());

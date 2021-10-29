@@ -47,7 +47,6 @@ public class SelectBudgetActivity extends SmartBudgetActivity implements ListIte
         budgetView.setAdapter(adapter);
         budgetView.setLayoutManager(new LinearLayoutManager(this));
 
-
         FloatingActionButton addBudgetButton = findViewById(R.id.add_budget_btn);
         addBudgetButton.setOnClickListener(v->launchCreateBudgetActivity());
     }

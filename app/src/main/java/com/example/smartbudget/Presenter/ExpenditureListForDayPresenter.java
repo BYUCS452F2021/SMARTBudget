@@ -12,7 +12,6 @@ import com.example.smartbudget.Runnable.GetExpendituresForDayRunnable;
 public class ExpenditureListForDayPresenter {
     public interface ExpenditureListForDayView {
         public void listFetched(GetExpenditureForDayResponse response);
-
     }
 
     private ExpenditureListForDayView _view;
