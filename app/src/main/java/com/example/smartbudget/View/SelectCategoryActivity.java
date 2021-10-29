@@ -59,8 +59,12 @@ public class SelectCategoryActivity extends SmartBudgetActivity implements ListI
 
     @Override
     public void onListItemClick(int position) {
-        DataCache.getInstance().setBudget(position);
-        launchBudgetDashboardActivity();
+
+    }
+
+    @Override
+    public void onLongItemClick(int position, View view) {
+
     }
 
     @Override
@@ -73,11 +77,6 @@ public class SelectCategoryActivity extends SmartBudgetActivity implements ListI
 
     private void launchCreateCategoryActivity(){
         Intent intent = new Intent(this, AddCategoryActivity.class);
-        startActivity(intent);
-    }
-
-    private void launchBudgetDashboardActivity(){
-        Intent intent = new Intent(this, MainBudgetDashboardActivity.class);
         startActivity(intent);
     }
 }
@@ -95,7 +94,7 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
         this.listener = listener;
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         public TextView categoryTextView;
         public TextView categoryGoalView; // FIXME maybe change to allotment
         private ListItemClickListener listener;
@@ -110,6 +109,12 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             listener.onListItemClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+            return true;
         }
     }
 

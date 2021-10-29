@@ -16,6 +16,7 @@ public class DataCache {
     private List<Category> _currCategories;
     private LocalDate _currDate;
     private List<Expenditure> _currExpenditure;
+    private Category _currCategory;
 
     private DataCache() {
     }
@@ -84,5 +85,13 @@ public class DataCache {
 
     public void setCurrExpenditure(List<Expenditure> _currExpenditure) {
         this._currExpenditure = _currExpenditure;
+    }
+
+    public Category getCurrCategory() {
+        return _currCategory;
+    }
+
+    public void setCurrCategory(Category _currCategory) {
+        this._currCategory = _currCategory;
     }
 }

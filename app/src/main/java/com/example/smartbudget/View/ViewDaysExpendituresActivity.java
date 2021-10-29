@@ -47,20 +47,16 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
         Button addExpenditureBtn = findViewById(R.id.add_expenditure);
         addExpenditureBtn.setOnClickListener(v->launchActivity(AddExpenditureActivity.class));
 
-//        List<Expenditure> expenditures = new ArrayList<>();
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "a descriptioin", 4.56f));
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "Another description", 7.12f));
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "Another Thing", 20.45f));
-//        expenditures.add(new Expenditure(new Category("Rent", 0), "Another nother thing", 100f));
-//        DataCache.getInstance().setCurrExpenditure(expenditures);
-
-        // TODO actual line here, take out dummy data
-        //DataCache.getInstance().setCurrExpenditure(new ArrayList<>());
-
         expenditureView = findViewById(R.id.expenditure_day_view);
         adapter = new ExpenditureAdapter(DataCache.getInstance().getCurrExpenditure(), this);
         expenditureView.setAdapter(adapter);
         expenditureView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -90,6 +86,11 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
     }
 
     @Override
+    public void onLongItemClick(int position, View view) {
+
+    }
+
+    @Override
     public void listFetched(GetExpenditureForDayResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateExpenditures(response.getExpenditures());
@@ -102,7 +103,7 @@ class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.Expendi
     private List<Expenditure> expenditures;
     private ListItemClickListener listener;
 
-    protected static class ExpenditureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    protected static class ExpenditureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView categoryDisplay;
         public TextView descriptionDisplay;
         public TextView amountDisplay;
@@ -119,6 +120,12 @@ class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.Expendi
         @Override
         public void onClick(View v) {
             listener.onListItemClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            listener.onLongItemClick(getAdapterPosition(), v);
+            return false;
         }
     }
 
