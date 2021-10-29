@@ -110,26 +110,31 @@ public class ExpenditureSqlDao extends SqlDao implements ExpenditureDao {
         return expenditures;
     }
 
-    // TODO: update/delete eventually
+    @Override
+    public void delete(Expenditure expenditure) {
+        String sql = "DELETE FROM " + getTableName() + " WHERE expenditure_id = '" + expenditure.getId() + "';";
+        try {
+            delete(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-    // TASK #1:
-    // look at AddBudget stuff to make it so you can add an Expenditure
+    @Override
+    public void update(Expenditure expenditure, Category category) {
+        String sql = "UPDATE " + getTableName() + " SET expenditure_id = " + expenditure.getId() +
+                " SET category_id = " + category.getId() +
+                " SET expenditure_description = '" + expenditure.getDescription() +
+                " SET expenditure_amount = " + expenditure.getAmount() + " SET expenditure_year = " + expenditure.getYear()
+        + " SET expenditure_month = " + expenditure.getMonth() + " SET expenditure_day = " + expenditure.getDay() +
+                "' WHERE expenditure_id = '" + expenditure.getId() + "';";
+        try {
+            update(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-    // Presenter, Runnable (presenter runs), Interface that Activity implements, request, response,
-    // also need a handler?
-    // DONE?
-
-    // TASK #2:
-
-    // Follow SelectBudget stuff (Presenter--ExpenditureList, Runnable --GetDayOfExpend, Interface, request-GetExpenditure, response, also a handler
-    // BudgetTable query all the expenditures for one day
-
-    // make it so the app can give
-
-    // also need a request and a response
-
-    // request (budget, year, month, day)
-    // change loadYear to loadDay
 
 
 }
