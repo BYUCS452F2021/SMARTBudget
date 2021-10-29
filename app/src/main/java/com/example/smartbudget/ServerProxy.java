@@ -4,16 +4,20 @@ import com.example.smartbudget.Handler.AddBudgetHandler;
 import com.example.smartbudget.Handler.AddExpenditureHandler;
 import com.example.smartbudget.Handler.GetBudgetsHandler;
 import com.example.smartbudget.Handler.GetExpendituresForDayHandler;
+import com.example.smartbudget.Handler.AddCategoryHandler;
+import com.example.smartbudget.Handler.GetCategoriesHandler;
 import com.example.smartbudget.Handler.LoginHandler;
 import com.example.smartbudget.Handler.RegisterHandler;
 import com.example.smartbudget.Request.AddBudgetRequest;
 import com.example.smartbudget.Request.AddExpenditureRequest;
+import com.example.smartbudget.Request.AddCategoryRequest;
 import com.example.smartbudget.Request.DeleteBudgetRequest;
 import com.example.smartbudget.Request.EditBudgetRequest;
 import com.example.smartbudget.Request.EditCategoriesRequest;
 import com.example.smartbudget.Request.EditExpendituresRequest;
 import com.example.smartbudget.Request.GetBudgetsRequest;
 import com.example.smartbudget.Request.GetExpendituresForDayRequest;
+import com.example.smartbudget.Request.GetCategoriesRequest;
 import com.example.smartbudget.Request.GetStatsRequest;
 import com.example.smartbudget.Request.LoadYearRequest;
 import com.example.smartbudget.Request.LoginRequest;
@@ -22,12 +26,14 @@ import com.example.smartbudget.Request.RegisterRequest;
 import com.example.smartbudget.Request.ReportDayRequest;
 import com.example.smartbudget.Response.AddBudgetResponse;
 import com.example.smartbudget.Response.AddExpenditureResponse;
+import com.example.smartbudget.Response.AddCategoryResponse;
 import com.example.smartbudget.Response.DeleteBudgetResponse;
 import com.example.smartbudget.Response.EditBudgetResponse;
 import com.example.smartbudget.Response.EditCategoriesResponse;
 import com.example.smartbudget.Response.EditExpendituresResponse;
 import com.example.smartbudget.Response.GetBudgetResponse;
 import com.example.smartbudget.Response.GetExpenditureForDayResponse;
+import com.example.smartbudget.Response.GetCategoriesResponse;
 import com.example.smartbudget.Response.GetStatsResponse;
 import com.example.smartbudget.Response.LoadYearResponse;
 import com.example.smartbudget.Response.LoginResponse;
@@ -79,6 +85,10 @@ public class ServerProxy {
         return null;
     }
 
+    public AddCategoryResponse addCategory(AddCategoryRequest request) {
+        return new AddCategoryHandler().addCategory(request);
+    }
+
     public LoginResponse login(LoginRequest request) {
         //use handler
         return new LoginHandler().login(request);
@@ -93,7 +103,11 @@ public class ServerProxy {
         return new GetBudgetsHandler().getBudgets(request);
     }
 
-    public GetExpenditureForDayResponse getExpenditures(GetExpendituresForDayRequest request){
+    public GetExpenditureForDayResponse getExpenditures(GetExpendituresForDayRequest request) {
         return new GetExpendituresForDayHandler().getExpenditures(request);
+    }
+
+    public GetCategoriesResponse getCategories(GetCategoriesRequest request) {
+        return new GetCategoriesHandler().getCategories(request);
     }
 }
