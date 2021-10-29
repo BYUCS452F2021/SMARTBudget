@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Category;
 import com.example.smartbudget.Model.Expenditure;
@@ -88,7 +86,7 @@ public class AddExpenditureActivity extends SmartBudgetActivity implements AddEx
     @Override
     public void expenditureAdded(AddExpenditureResponse response) {
         if (response.isSuccess()){
-            DataCache.getInstance().getCurrExpenditure().add(response.getExpenditure());
+            DataCache.getInstance().getCurrExpenditures().add(response.getExpenditure());
             finish();
         }
         else {

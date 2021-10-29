@@ -22,6 +22,7 @@ import com.example.smartbudget.Presenter.BudgetListPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.DeleteBudgetResponse;
 import com.example.smartbudget.Response.GetBudgetResponse;
+import com.example.smartbudget.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -56,13 +57,6 @@ public class SelectBudgetActivity extends SmartBudgetActivity implements ListIte
         addBudgetButton.setOnClickListener(v->launchCreateBudgetActivity());
     }
 
-    public void showPopup(View v, int rMenu, PopupMenu.OnMenuItemClickListener context){
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener(context);
-        popup.inflate(rMenu);
-        popup.show();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -78,7 +72,7 @@ public class SelectBudgetActivity extends SmartBudgetActivity implements ListIte
     @Override
     public void onLongItemClick(int position, View view) {
         DataCache.getInstance().setBudget(position);
-        showPopup(view, R.menu.edit_menu, this);
+        Utils.showPopup(this, view, R.menu.edit_menu, this);
     }
 
     @Override
