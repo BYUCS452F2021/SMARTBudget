@@ -15,6 +15,8 @@
             android:id="@+id/loginText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
             android:text="Welcome! \n Please Log In"
             android:textAlignment="center"
             android:textSize="34sp" />
@@ -23,6 +25,7 @@
             android:id="@+id/loginNameTextBox"
             android:layout_width="242dp"
             android:layout_height="68dp"
+            android:layout_gravity="center"
             android:ems="10"
             android:hint="Name"
             android:inputType="textPersonName"
@@ -32,21 +35,26 @@
             android:id="@+id/loginPasswordTextBox"
             android:layout_width="239dp"
             android:layout_height="68dp"
+            android:layout_gravity="center"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:text="Log In!" />
 
         <Button
             android:id="@+id/registerButton"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Register" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

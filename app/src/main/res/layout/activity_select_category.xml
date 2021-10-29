@@ -8,11 +8,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_view"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:background="#6E6E6E"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        android:layout_width="411dp"
+        android:layout_height="715dp"
+        android:background="#6E6E6E" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_category_btn"
@@ -23,5 +21,5 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_btn_speak_now" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 </androidx.constraintlayout.widget.ConstraintLayout>
