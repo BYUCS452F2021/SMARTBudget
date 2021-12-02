@@ -6,18 +6,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.smartbudget.DAO.relational.CategorySqlDao;
-import com.example.smartbudget.DAO.relational.DatabaseSqlManager;
-import com.example.smartbudget.DAO.relational.ExpenditureSqlDao;
+import com.example.smartbudget.ClientSide;
 import com.example.smartbudget.DataCache;
-import com.example.smartbudget.Model.Budget;
-import com.example.smartbudget.Model.Category;
-import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.Presenter.LoginPresenter;
 import com.example.smartbudget.Presenter.RegisterPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.LoginResponse;
 import com.example.smartbudget.Response.RegisterResponse;
+import com.example.smartbudget.ServerProxy;
+import com.example.smartbudget.ServerSide;
 
 public class LoginActivity extends SmartBudgetActivity implements LoginPresenter.LoginView, RegisterPresenter.RegisterView {
     private LoginPresenter _loginPresenter;
@@ -31,6 +28,9 @@ public class LoginActivity extends SmartBudgetActivity implements LoginPresenter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //set client side
+        ServerProxy.setIRequestToResponse(new ServerSide("10.37.123.58", "8080"));
+        // ServerProxy.setIRequestToResponse(new ClientSide());
 
         _loginPresenter = new LoginPresenter(this);
         _registerPresenter = new RegisterPresenter(this);
@@ -81,14 +81,20 @@ public class LoginActivity extends SmartBudgetActivity implements LoginPresenter
 
     @Override
     public void loginDone(LoginResponse response) {
-        String displayMessage;
-        if(response.getSuccess()){
-            DataCache.getInstance().setCurrUser(response.getUser());
-            launchBudgetViewActvity();
-        }else{
-            displayMessage = "Incorrect username or password";
+        try {
+            String displayMessage;
+            if(response.getSuccess()){
+                DataCache.getInstance().setCurrUser(response.getUser());
+                launchBudgetViewActvity();
+            }else{
+                displayMessage = "Incorrect username or password";
+                this.runOnUiThread(
+                        () -> Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show()
+                );
+            }
+        } catch (Exception e) {
             this.runOnUiThread(
-                    () -> Toast.makeText(getApplicationContext(), displayMessage, Toast.LENGTH_SHORT).show()
+                    () -> Toast.makeText(getApplicationContext(), "Network Problem", Toast.LENGTH_SHORT).show()
             );
         }
     }

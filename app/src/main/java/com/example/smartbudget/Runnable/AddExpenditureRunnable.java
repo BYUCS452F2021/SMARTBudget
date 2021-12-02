@@ -2,9 +2,7 @@ package com.example.smartbudget.Runnable;
 
 import android.os.Looper;
 
-import com.example.smartbudget.Presenter.AddBudgetPresenter;
 import com.example.smartbudget.Presenter.AddExpenditurePresenter;
-import com.example.smartbudget.Request.AddBudgetRequest;
 import com.example.smartbudget.Request.AddExpenditureRequest;
 import com.example.smartbudget.ServerProxy;
 

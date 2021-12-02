@@ -2,10 +2,13 @@ package com.example.smartbudget.Response;
 
 import com.example.smartbudget.Model.User;
 
-public class RegisterResponse {
+public class RegisterResponse extends Response {
     private boolean _success;
     private String _message;
     private User _user;
+
+    public RegisterResponse() {
+    }
 
     public RegisterResponse(boolean success, User user, String message){
         _success = success;

@@ -4,7 +4,6 @@ import android.os.Looper;
 
 import com.example.smartbudget.Presenter.LoginPresenter;
 import com.example.smartbudget.Request.LoginRequest;
-import com.example.smartbudget.Response.LoginResponse;
 import com.example.smartbudget.ServerProxy;
 
 public class LoginRunnable implements Runnable{

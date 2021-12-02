@@ -5,6 +5,9 @@ import com.example.smartbudget.Model.Budget;
 public class UpdateBudgetResponse extends Response{
     private Budget updatedBudget;
 
+    public UpdateBudgetResponse() {
+    }
+
     public UpdateBudgetResponse(String message) {
         super(message);
     }

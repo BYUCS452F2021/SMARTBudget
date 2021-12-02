@@ -1,5 +1,6 @@
 package com.example.smartbudget.Presenter;
 
+import com.example.smartbudget.DataCache;
 import com.example.smartbudget.Model.Budget;
 import com.example.smartbudget.Model.Expenditure;
 import com.example.smartbudget.Model.User;
@@ -27,7 +28,10 @@ public class ExpenditureListForDayPresenter implements ViewExpenditurePresenter{
     }
 
     public void getExpendituresForDay(Budget budget){
-        GetExpendituresForDayRequest request = new GetExpendituresForDayRequest(budget);
+        GetExpendituresForDayRequest request = new GetExpendituresForDayRequest(budget,
+                DataCache.getInstance().getCurrDate().getYear(),
+                DataCache.getInstance().getCurrDate().getMonthValue(),
+                DataCache.getInstance().getCurrDate().getDayOfMonth());
         _runnable = new GetExpendituresForDayRunnable(this, request);
         new Thread(_runnable).start();
     }

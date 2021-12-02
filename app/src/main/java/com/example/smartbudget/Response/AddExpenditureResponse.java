@@ -6,6 +6,9 @@ import com.example.smartbudget.Model.Expenditure;
 public class AddExpenditureResponse extends Response{
     private Expenditure expenditure;
 
+    public AddExpenditureResponse() {
+    }
+
     public AddExpenditureResponse(String message) {
         super(message);
     }

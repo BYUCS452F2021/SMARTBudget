@@ -77,7 +77,7 @@ public class SelectCategoryActivity extends SmartBudgetActivity implements ListI
     public void listFetched(GetCategoriesResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateCategories(response.getCategories());
-            adapter.notifyItemRangeInserted(0, categories.size());
+            runOnUiThread(()->{adapter.notifyItemRangeInserted(0, categories.size());});
         }
     }
 

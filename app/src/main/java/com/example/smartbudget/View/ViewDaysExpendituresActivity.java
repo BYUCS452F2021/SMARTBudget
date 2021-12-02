@@ -96,7 +96,7 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
     public void listFetched(GetExpenditureForDayResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateExpenditures(response.getExpenditures());
-            adapter.notifyItemRangeInserted(0, expenditures.size());
+            runOnUiThread(()->{adapter.notifyItemRangeInserted(0, expenditures.size());});
         }
     }
 

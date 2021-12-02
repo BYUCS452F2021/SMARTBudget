@@ -7,6 +7,9 @@ import java.util.List;
 public class GetBudgetResponse extends Response{
     private List<Budget> budgets;
 
+    public GetBudgetResponse() {
+    }
+
     public GetBudgetResponse(String message) {
         super(message);
     }

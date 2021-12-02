@@ -5,6 +5,9 @@ import com.example.smartbudget.Model.Category;
 public class AddCategoryResponse extends Response{
     private Category category;
 
+    public AddCategoryResponse() {
+    }
+
     public AddCategoryResponse(String message) {
         super(message);
     }

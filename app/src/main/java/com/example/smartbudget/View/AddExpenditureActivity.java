@@ -100,29 +100,31 @@ public class AddExpenditureActivity extends SmartBudgetActivity implements AddEx
 
     @Override
     public void categoriesLoaded(GetCategoriesResponse response) {
-        if (response.getCategories() == null || response.getCategories().isEmpty()){
-            finish();
-            return;
-        }
-        DataCache.getInstance().updateCategories(response.getCategories());
-        DataCache.getInstance().setCurrCategory(categories.get(0));
-
-        categorySpinner.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        final String[] personNames = makeStringArray(categories);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, personNames);
-        categorySpinner.setAdapter(arrayAdapter);
-
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DataCache.getInstance().setCurrCategory(categories.get(position));
+        runOnUiThread(()->{
+            if (response.getCategories() == null || response.getCategories().isEmpty()){
+                finish();
+                return;
             }
+            DataCache.getInstance().updateCategories(response.getCategories());
+            DataCache.getInstance().setCurrCategory(categories.get(0));
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            categorySpinner.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            }
+            final String[] personNames = makeStringArray(categories);
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, personNames);
+            categorySpinner.setAdapter(arrayAdapter);
+
+            categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    DataCache.getInstance().setCurrCategory(categories.get(position));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         });
     }
 }

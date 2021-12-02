@@ -9,21 +9,21 @@ public class Expenditure {
     Category category;
     String description;
     float amount;
-    LocalDate timeStamp;
+    String timeStamp;
 
     public Expenditure(Category category, String description, float amount, LocalDate timeStamp) {
         this.category = category;
         this.description = description;
         this.amount = amount;
         this.id = UUID.randomUUID();
-        this.timeStamp = timeStamp;
+        this.timeStamp = timeStamp.toString();
     }
     public Expenditure(UUID id, String description, float amount, int year, int month, int day,
                        Category category) {
         this.id = id;
         this.description = description;
         this.amount = amount;
-        this.timeStamp = LocalDate.of(year, month, day);
+        this.timeStamp = LocalDate.of(year, month, day).toString();
         this.category = category;
     }
 
@@ -39,16 +39,20 @@ public class Expenditure {
         return amount;
     }
 
+    private LocalDate getTime(){
+        return LocalDate.parse(timeStamp);
+    }
+
     public int getYear() {
-        return timeStamp.getYear();
+        return getTime().getYear();
     }
 
     public int getMonth() {
-        return timeStamp.getMonthValue();
+        return getTime().getMonthValue();
     }
 
     public int getDay() {
-        return timeStamp.getDayOfMonth();
+        return getTime().getDayOfMonth();
     }
 
     public Category getCategory(){

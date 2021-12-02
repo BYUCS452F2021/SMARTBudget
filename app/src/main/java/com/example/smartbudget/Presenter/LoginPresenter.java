@@ -1,12 +1,8 @@
 package com.example.smartbudget.Presenter;
 
 import com.example.smartbudget.Request.LoginRequest;
-import com.example.smartbudget.Request.RegisterRequest;
 import com.example.smartbudget.Response.LoginResponse;
-import com.example.smartbudget.Response.RegisterResponse;
 import com.example.smartbudget.Runnable.LoginRunnable;
-import com.example.smartbudget.ServerProxy;
-import com.example.smartbudget.View.LoginActivity;
 
 public class LoginPresenter {
 

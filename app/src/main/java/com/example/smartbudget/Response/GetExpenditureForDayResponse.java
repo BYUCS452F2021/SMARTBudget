@@ -8,6 +8,9 @@ import java.util.List;
 public class GetExpenditureForDayResponse extends Response{
     private List<Expenditure> expenditures;
 
+    public GetExpenditureForDayResponse() {
+    }
+
     public GetExpenditureForDayResponse(String message) {
         super(message);
     }

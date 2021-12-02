@@ -7,6 +7,9 @@ import java.util.List;
 public class GetCategoriesResponse extends Response {
     private List<Category> categories;
 
+    public GetCategoriesResponse() {
+    }
+
     public GetCategoriesResponse(String message) {
         super(message);
     }

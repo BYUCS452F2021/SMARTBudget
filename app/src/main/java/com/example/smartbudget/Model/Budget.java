@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Budget {
     private UUID budgetID;
     private String name;
-    private LocalDateTime timestamp;
+    private String timestamp;
     private List<Expenditure> expenditures;
     private List<Category> categories;
 
@@ -24,7 +24,7 @@ public class Budget {
     public Budget(UUID id, String name, LocalDateTime timestamp) {
         this.name = name;
         this.budgetID = id;
-        this.timestamp = timestamp;
+        this.timestamp = timestamp.toString();
         this.expenditures = new ArrayList<>();
         this.categories = new ArrayList<>();
     }
@@ -34,11 +34,7 @@ public class Budget {
      * @param name
      */
     public Budget(String name) {
-        this.budgetID = UUID.randomUUID();
-        this.name = name;
-        this.timestamp = LocalDateTime.now();
-        this.expenditures = new ArrayList<>();
-        this.categories = new ArrayList<>();
+        this(UUID.randomUUID(), name, LocalDateTime.now());
     }
 
     public UUID getBudgetID() {
@@ -50,7 +46,7 @@ public class Budget {
     }
 
     public LocalDateTime getTimestamp() {
-        return timestamp;
+        return LocalDateTime.parse(timestamp);
     }
 
     public double calcSpendingGoal(){

@@ -5,12 +5,14 @@ import com.example.smartbudget.Request.GetCategoriesRequest;
 import com.example.smartbudget.Response.GetCategoriesResponse;
 
 
-public class GetCategoriesHandler {
-    public GetCategoriesResponse getCategories(GetCategoriesRequest request){
-        try {
-            return new GetCategoriesResponse(DatabaseSqlManager.getInstance().createCategoryDao().getCategories(request.getBudget()));
-        } catch (Exception e) {
-            return new GetCategoriesResponse(e.getMessage());
-        }
+public class GetCategoriesHandler extends Handler<GetCategoriesRequest, GetCategoriesResponse> {
+    @Override
+    protected GetCategoriesResponse handle(GetCategoriesRequest request) {
+        return new GetCategoriesResponse(DatabaseSqlManager.getInstance().createCategoryDao().getCategories(request.getBudget()));
+    }
+
+    @Override
+    protected GetCategoriesResponse fail(Exception e) {
+        return new GetCategoriesResponse(e.getMessage());
     }
 }

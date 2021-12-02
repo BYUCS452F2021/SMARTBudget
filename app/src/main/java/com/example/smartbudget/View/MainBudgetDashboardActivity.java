@@ -20,7 +20,7 @@ public class MainBudgetDashboardActivity extends SmartBudgetActivity {
 
         CalendarView calendar = findViewById(R.id.calendarView);
         calendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            DataCache.getInstance().setCurrDate(LocalDate.of(year, month, dayOfMonth));
+            DataCache.getInstance().setCurrDate(LocalDate.of(year, month + 1, dayOfMonth));
             launchDayViewActivity();
         });
 

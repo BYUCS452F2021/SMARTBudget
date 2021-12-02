@@ -1,6 +1,6 @@
 package com.example.smartbudget.Response;
 
-public abstract class Response {
+public class Response {
     private boolean success;
     private String message;
 

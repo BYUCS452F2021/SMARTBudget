@@ -79,7 +79,7 @@ public class SelectBudgetActivity extends SmartBudgetActivity implements ListIte
     public void listFetched(GetBudgetResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateBudgets(response.getBudgets());
-            adapter.notifyItemRangeInserted(0, budgets.size());
+            runOnUiThread(()->{adapter.notifyItemRangeInserted(0, budgets.size());});
         }
     }
 

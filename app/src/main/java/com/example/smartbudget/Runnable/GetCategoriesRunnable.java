@@ -2,7 +2,6 @@ package com.example.smartbudget.Runnable;
 
 import android.os.Looper;
 
-import com.example.smartbudget.Presenter.CategoryListPresenter;
 import com.example.smartbudget.Presenter.GetCategoriesPresenter;
 import com.example.smartbudget.Request.GetCategoriesRequest;
 import com.example.smartbudget.ServerProxy;
