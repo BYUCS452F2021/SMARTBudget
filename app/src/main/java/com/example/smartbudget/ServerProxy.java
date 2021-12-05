@@ -44,6 +44,10 @@ public class ServerProxy implements IBackend {
         r = meep;
     }
 
+    public static boolean usingServerSide() {
+        return r instanceof ServerSide;
+    }
+
     @Override
     public AddBudgetResponse addBudget(AddBudgetRequest request) {
         return r.addBudget(request);

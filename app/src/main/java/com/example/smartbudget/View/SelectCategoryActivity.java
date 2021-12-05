@@ -20,6 +20,7 @@ import com.example.smartbudget.Presenter.CategoryListPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.DeleteCategoryResponse;
 import com.example.smartbudget.Response.GetCategoriesResponse;
+import com.example.smartbudget.ServerProxy;
 import com.example.smartbudget.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -77,7 +78,12 @@ public class SelectCategoryActivity extends SmartBudgetActivity implements ListI
     public void listFetched(GetCategoriesResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateCategories(response.getCategories());
-            runOnUiThread(()->{adapter.notifyItemRangeInserted(0, categories.size());});
+            if (ServerProxy.usingServerSide()){
+                runOnUiThread(()->{adapter.notifyItemRangeInserted(0, categories.size());});
+            }
+            else {
+                adapter.notifyItemRangeInserted(0, categories.size());
+            }
         }
     }
 

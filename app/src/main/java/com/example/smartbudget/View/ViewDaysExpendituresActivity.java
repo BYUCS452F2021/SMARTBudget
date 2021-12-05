@@ -23,6 +23,7 @@ import com.example.smartbudget.Presenter.ExpenditureListForDayPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.DeleteExpenditureResponse;
 import com.example.smartbudget.Response.GetExpenditureForDayResponse;
+import com.example.smartbudget.ServerProxy;
 import com.example.smartbudget.Utils;
 
 import java.util.ArrayList;
@@ -96,7 +97,12 @@ public class ViewDaysExpendituresActivity extends SmartBudgetActivity implements
     public void listFetched(GetExpenditureForDayResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateExpenditures(response.getExpenditures());
-            runOnUiThread(()->{adapter.notifyItemRangeInserted(0, expenditures.size());});
+            if (ServerProxy.usingServerSide()){
+                runOnUiThread(()->{adapter.notifyItemRangeInserted(0, expenditures.size());});
+            }
+            else {
+                adapter.notifyItemRangeInserted(0, expenditures.size());
+            }
         }
     }
 

@@ -22,6 +22,8 @@ import com.example.smartbudget.Presenter.BudgetListPresenter;
 import com.example.smartbudget.R;
 import com.example.smartbudget.Response.DeleteBudgetResponse;
 import com.example.smartbudget.Response.GetBudgetResponse;
+import com.example.smartbudget.ServerProxy;
+import com.example.smartbudget.ServerSide;
 import com.example.smartbudget.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -79,7 +81,13 @@ public class SelectBudgetActivity extends SmartBudgetActivity implements ListIte
     public void listFetched(GetBudgetResponse response) {
         if (response.isSuccess()) {
             DataCache.getInstance().updateBudgets(response.getBudgets());
-            runOnUiThread(()->{adapter.notifyItemRangeInserted(0, budgets.size());});
+            if (ServerProxy.usingServerSide()){
+                runOnUiThread(()->{adapter.notifyItemRangeInserted(0, budgets.size());});
+            }
+            else {
+                adapter.notifyItemRangeInserted(0, budgets.size());
+            }
+
         }
     }
 

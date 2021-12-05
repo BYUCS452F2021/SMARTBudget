@@ -29,8 +29,8 @@ public class LoginActivity extends SmartBudgetActivity implements LoginPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //set client side
-        ServerProxy.setIRequestToResponse(new ServerSide("10.37.123.58", "8080"));
-        // ServerProxy.setIRequestToResponse(new ClientSide());
+        // ServerProxy.setIRequestToResponse(new ServerSide("10.37.123.58", "8080"));
+        ServerProxy.setIRequestToResponse(new ClientSide());
 
         _loginPresenter = new LoginPresenter(this);
         _registerPresenter = new RegisterPresenter(this);
