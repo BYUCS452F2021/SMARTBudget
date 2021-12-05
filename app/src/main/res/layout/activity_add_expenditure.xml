@@ -3,19 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_expenditure_layout"
+    android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.AddExpenditureActivity">
 
     <EditText
         android:id="@+id/expenditure_description_input"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/description"
         android:inputType="textMultiLine"
         android:lines="5"
-        android:minLines="5"
+        android:minLines="1"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,6 +25,8 @@
 
     <Spinner
         android:id="@+id/expenditure_category_spinner"
+        android:paddingVertical="120dp"
+        android:paddingHorizontal="50dp"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/expenditure_description_input"
